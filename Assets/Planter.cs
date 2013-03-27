@@ -9,7 +9,10 @@ public class Planter : MonoBehaviour
 		{
 			GameObject plant = (GameObject) Instantiate(GameObject.Find("Plant"));
 
-			plant.transform.position = new Vector3(Event.current.mousePosition.x / Screen.width + 0.5f, -Event.current.mousePosition.y / Screen.height - 0.5f, -2);
+			Vector3 screenPosition = new Vector3(Event.current.mousePosition.x, Screen.height - Event.current.mousePosition.y, 0.0f);
+			Vector3 worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
+			worldPosition.z = -2.0f;
+			plant.transform.position = worldPosition;
 		}
     }
 
