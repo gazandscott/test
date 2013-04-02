@@ -19,8 +19,6 @@ Desktop.ini
 ## MonoDevelop
 #################
 
-Assembly-CSharp.csproj
-Assembly-CSharp-vs.csproj
 *.csproj
 *.pidb
 *.sln
