@@ -5,9 +5,9 @@
 Library
 Temp
 
-############
+#################
 ## Windows
-############
+#################
 
 # Windows image file caches
 Thumbs.db
@@ -15,10 +15,12 @@ Thumbs.db
 # Folder config file
 Desktop.ini
 
-############
+#################
 ## MonoDevelop
-############
+#################
 
+Assembly-CSharp.csproj
+Assembly-CSharp-vs.csproj
 *.csproj
 *.pidb
 *.sln
