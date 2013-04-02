@@ -15,7 +15,7 @@ public class Dirt : MonoBehaviour
 	
 	void Update()
 	{
-		nitrogen -= 0.1f * Time.deltaTime;
-		water -= 0.1f * Time.deltaTime;
+		nitrogen -= 0.01f * Time.deltaTime;
+		water -= 0.01f * Time.deltaTime;
 	}
 }
