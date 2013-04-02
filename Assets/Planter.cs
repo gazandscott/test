@@ -7,12 +7,21 @@ public class Planter : MonoBehaviour
 	{
         if (Event.current.type == EventType.mouseUp && Event.current.button == 0)
 		{
-			GameObject plant = (GameObject) Instantiate(GameObject.Find("Plant"));
-
-			Vector3 screenPosition = new Vector3(Event.current.mousePosition.x, Screen.height - Event.current.mousePosition.y, 0.0f);
-			Vector3 worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
-			worldPosition.z = -2.0f;
-			plant.transform.position = worldPosition;
+			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			LayerMask layerMask = new LayerMask();
+			layerMask.value = 1;
+			RaycastHit hit;
+			if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
+			{
+				if (hit.collider.name.StartsWith("Dirt"))
+				{
+					Dirt dirt = (Dirt) hit.collider.gameObject.GetComponent("Dirt");
+					if (dirt.GetPlant() == null)
+					{
+						dirt.SetPlant((GameObject) Instantiate(GameObject.Find("Plant")));
+					}
+				}
+			}
 		}
     }
 
@@ -24,3 +33,4 @@ public class Planter : MonoBehaviour
 	{
 	}
 }
+				
