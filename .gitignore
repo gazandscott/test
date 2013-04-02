@@ -15,8 +15,11 @@ Thumbs.db
 # Folder config file
 Desktop.ini
 
+############
+## MonoDevelop
+############
 
+*.csproj
+*.pidb
 *.sln
 *.userprefs
-*.pidb
-*.cproj
