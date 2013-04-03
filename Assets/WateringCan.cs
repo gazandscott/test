@@ -7,6 +7,7 @@ public class WateringCan : MonoBehaviour {
 	public LayerMask layerMask;
 	GameObject clickedGameObj;
 	bool clickedObjAquired;
+	Dirt dirt;
 	
 	void OnGUI()
 	{		
@@ -14,17 +15,13 @@ public class WateringCan : MonoBehaviour {
 		{
 			clickedGameObj = GetClickedGameObject();
 			
-			//clickedGameObj.GetComponent("Dirt");
-			//if(clickedGameObj != null)
-			//{
-			//	clickedObjAquired = true;
-			//}
-			
-			//if(clickedObjAquired == true)
-			//{
-				
-			//}
-		}
+			if(clickedGameObj.name.StartsWith("Dirt"))
+			{
+				// Particles for watering schtuff
+				GameObject WaterDroplets = (GameObject) Instantiate(GameObject.Find("Water Drops"));
+				WaterDroplets.transform.position = clickedGameObj.transform.position - new Vector3(0,0,1);
+			}
+		}	
 	}
 	
 	// Use this for initialization
