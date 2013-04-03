@@ -3,6 +3,8 @@ using System.Collections;
 
 public class Dirt : MonoBehaviour
 {
+	float lastStatDisplayTime;
+	
 	float nitrogen;
 	
 	GameObject plant;
@@ -25,6 +27,7 @@ public class Dirt : MonoBehaviour
 
 	void Start()
 	{
+		lastStatDisplayTime = 0.0f;
 		nitrogen = 10.0f;
 		water = 10.0f;
 	}
@@ -33,5 +36,12 @@ public class Dirt : MonoBehaviour
 	{
 		nitrogen -= 0.01f * Time.deltaTime;
 		water -= 0.01f * Time.deltaTime;
+
+		if (Time.timeSinceLevelLoad - lastStatDisplayTime > 1.0f)
+		{
+			lastStatDisplayTime = Time.timeSinceLevelLoad;
+			GUIText text = (GUIText) GameObject.Find("DirtStats").GetComponent("GUIText");
+			text.text = "Dirt Stats!\nH2O: " + water + "\nN: " + nitrogen;
+		}
 	}
 }
