@@ -3,8 +3,6 @@ using System.Collections;
 
 public class WateringCan : MonoBehaviour {
 	
-	
-	public LayerMask layerMask;
 	GameObject clickedGameObj;
 	bool clickedObjAquired;
 	Dirt dirt;
@@ -15,11 +13,13 @@ public class WateringCan : MonoBehaviour {
 		{
 			clickedGameObj = GetClickedGameObject();
 			
-			if(clickedGameObj.name.StartsWith("Dirt"))
+			if(clickedGameObj != null && clickedGameObj.name.StartsWith("Dirt"))
 			{
 				// Particles for watering schtuff
 				GameObject WaterDroplets = (GameObject) Instantiate(GameObject.Find("Water Drops"));
-				WaterDroplets.transform.position = clickedGameObj.transform.position - new Vector3(0,0,1);
+				Vector3 waterPosition = clickedGameObj.transform.position;
+				waterPosition.z = -4.0f;
+				WaterDroplets.transform.position = waterPosition;
 			}
 		}	
 	}
@@ -38,6 +38,8 @@ public class WateringCan : MonoBehaviour {
 	{
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
+		LayerMask layerMask = new LayerMask();
+		layerMask.value = 1;
         // Casts the ray and get the first game object hit<br />
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
 		{
