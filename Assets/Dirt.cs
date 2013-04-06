@@ -1,47 +1,50 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Dirt : MonoBehaviour
-{
-	float lastStatDisplayTime;
+{	
+	Dictionary<Nutrient, float> nutrients;
 	
-	float nitrogen;
+	GameObject plantObject;
 	
-	GameObject plant;
-	
-	float water;
-	
-	public GameObject GetPlant()
+	public float Consume(Nutrient nutrient, float quantity)
 	{
-		return plant;
+		nutrients[nutrient] = nutrients[nutrient] - quantity;
+		
+		return quantity;
 	}
 	
-	public void SetPlant(GameObject plant)
+	public Dictionary<Nutrient, float> GetNutrients()
 	{
-		this.plant = plant;
+		return nutrients;
+	}
+	
+	public GameObject GetPlantObject()
+	{
+		return plantObject;
+	}
+	
+	public void SetPlantObject(GameObject plantObject)
+	{
+		this.plantObject = plantObject;
 
 		Vector3 plantPosition = transform.position;
 		plantPosition.z = -2.0f;
-		plant.transform.position = plantPosition;
+		plantObject.transform.position = plantPosition;
 	}
 
 	void Start()
 	{
-		lastStatDisplayTime = 0.0f;
-		nitrogen = 10.0f;
-		water = 10.0f;
+		nutrients = new Dictionary<Nutrient, float>();
+		
+		nutrients[Nutrient.H2O] = 10.0f;
+		nutrients[Nutrient.N] = 10.0f;
 	}
 	
 	void Update()
 	{
-		nitrogen -= 0.01f * Time.deltaTime;
-		water -= 0.01f * Time.deltaTime;
-
-		if (Time.timeSinceLevelLoad - lastStatDisplayTime > 1.0f)
-		{
-			lastStatDisplayTime = Time.timeSinceLevelLoad;
-			GUIText text = (GUIText) GameObject.Find("DirtStats").GetComponent("GUIText");
-			text.text = "Dirt Stats!\nH2O: " + water + "\nN: " + nitrogen;
-		}
+		nutrients[Nutrient.H2O] = nutrients[Nutrient.H2O] - (0.01f * Time.deltaTime);
+		nutrients[Nutrient.N] = nutrients[Nutrient.N] - (0.01f * Time.deltaTime);
 	}
 }

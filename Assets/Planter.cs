@@ -7,18 +7,19 @@ public class Planter : MonoBehaviour
 	{
         if (Event.current.type == EventType.mouseUp && Event.current.button == 0)
 		{
-			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-			LayerMask layerMask = new LayerMask();
-			layerMask.value = 1;
-			RaycastHit hit;
-			if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
+			GameObject clickedObject = Utils.GetGameObjectAtMousePosition();
+			if (clickedObject != null)
 			{
-				if (hit.collider.name.StartsWith("Dirt"))
+				if (clickedObject.name.StartsWith("Dirt"))
 				{
-					Dirt dirt = (Dirt) hit.collider.gameObject.GetComponent("Dirt");
-					if (dirt.GetPlant() == null)
+					Dirt dirt = (Dirt) clickedObject.GetComponent("Dirt");
+					if (dirt.GetPlantObject() == null)
 					{
-						dirt.SetPlant((GameObject) Instantiate(GameObject.Find("Plant")));
+						GameObject plantObject = (GameObject) Instantiate(GameObject.Find("Plant"));
+						Plant plant = (Plant) plantObject.GetComponent("Plant");
+						
+						dirt.SetPlantObject(plantObject);
+						plant.SetDirtObject(clickedObject);
 					}
 				}
 			}
