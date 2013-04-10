@@ -17,10 +17,14 @@ public class WateringCan : MonoBehaviour
 			
 			if(clickedGameObj != null && clickedGameObj.name.StartsWith("Dirt"))
 			{
+				Dirt dirt = (Dirt) clickedGameObj.GetComponent("Dirt");
+				dirt.Provide(Nutrient.H2O, 10.0f);
+				
 				// Particles for watering schtuff
 				GameObject WaterDroplets = (GameObject) Instantiate(GameObject.Find("Water Drops"));
 				Vector3 waterPosition = clickedGameObj.transform.position;
 				waterPosition.z = -4.0f;
+				waterPosition.y += Dirt.EXTENT * 0.5f;
 				WaterDroplets.transform.position = waterPosition;
 			}
 		}	
@@ -33,5 +37,4 @@ public class WateringCan : MonoBehaviour
 	void Update () 
 	{	
 	}
-	
 }

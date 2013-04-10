@@ -3,16 +3,23 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class Dirt : MonoBehaviour
-{	
+{
+	public static float EXTENT = 1.0f;
+
 	Dictionary<Nutrient, float> nutrients;
 	
 	GameObject plantObject;
 	
-	public float Consume(Nutrient nutrient, float quantity)
+	float AlterNutrient(Nutrient nutrient, float quantity)
 	{
-		nutrients[nutrient] = nutrients[nutrient] - quantity;
+		nutrients[nutrient] = nutrients[nutrient] + quantity;
 		
 		return quantity;
+	}
+	
+	public float Consume(Nutrient nutrient, float quantity)
+	{		
+		return AlterNutrient(nutrient, -quantity);
 	}
 	
 	public Dictionary<Nutrient, float> GetNutrients()
@@ -32,6 +39,11 @@ public class Dirt : MonoBehaviour
 		Vector3 plantPosition = transform.position;
 		plantPosition.z = -2.0f;
 		plantObject.transform.position = plantPosition;
+	}
+	
+	public float Provide(Nutrient nutrient, float quantity)
+	{
+		return AlterNutrient(nutrient, quantity);
 	}
 
 	void Start()
