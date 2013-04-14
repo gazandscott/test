@@ -18,7 +18,7 @@ public class WateringCan : MonoBehaviour
 			if(clickedGameObj != null && clickedGameObj.name.StartsWith("Dirt"))
 			{
 				Dirt dirt = (Dirt) clickedGameObj.GetComponent("Dirt");
-				dirt.Provide(Nutrient.H2O, 10.0f);
+				dirt.Provide(Nutrient.H2O, 1.0f);
 				
 				// Particles for watering schtuff
 				GameObject WaterDroplets = (GameObject) Instantiate(GameObject.Find("Water Drops"));

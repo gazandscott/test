@@ -3,16 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class Plant : MonoBehaviour
-{
-	float age;
-	
+{	
 	GameObject dirtObject;
 	
 	float growthRate;
 	
 	float lastGrowTime;
 	
-	Dictionary<Nutrient, float> nutrientRequirements;
+	float maxSize;
+	
+	Dictionary<Nutrient, float> nutrientsMinimum;
+	
+	Dictionary<Nutrient, float> nutrientsOptimum;
+	
+	float size;
 	
 	public GameObject GetDirtObject()
 	{
@@ -26,14 +30,19 @@ public class Plant : MonoBehaviour
 
 	void Start ()
 	{
-		age = 0.0f;
 		growthRate = 0.2f;
 		lastGrowTime = 0.0f;
-		nutrientRequirements = new Dictionary<Nutrient, float>();
+		maxSize = 5.0f;
+		nutrientsMinimum = new Dictionary<Nutrient, float>();
+		nutrientsOptimum = new Dictionary<Nutrient, float>();
+		size = 1.0f;
 		transform.localScale = new Vector3(0.02f, 0.02f, 0.02f);
 		
-		nutrientRequirements[Nutrient.H2O] = 0.03f;
-		nutrientRequirements[Nutrient.N] = 0.01f;
+		nutrientsMinimum[Nutrient.H2O] = 0.03f;
+		nutrientsMinimum[Nutrient.N] = 0.01f;
+		
+		nutrientsOptimum[Nutrient.H2O] = 0.06f;
+		nutrientsOptimum[Nutrient.N] = 0.02f;
 	}
 	
 	void Update ()
@@ -46,18 +55,35 @@ public class Plant : MonoBehaviour
 
 		if (Time.timeSinceLevelLoad - lastGrowTime > 1.0f / growthRate)
 		{
+			lastGrowTime = Time.timeSinceLevelLoad;
 			Dirt dirt = (Dirt) dirtObject.GetComponent("Dirt");
-			foreach (Nutrient nutrient in nutrientRequirements.Keys)
-			{
-				dirt.Consume(nutrient, nutrientRequirements[nutrient]);
-			}
 			
-			if (age < 5.0f)
+			float growthFactor = 1.0f;
+			foreach (Nutrient nutrient in nutrientsOptimum.Keys)
 			{
-				age++;
-				lastGrowTime = Time.timeSinceLevelLoad;
+				float consumedQuantity = dirt.Consume(nutrient, nutrientsOptimum[nutrient]);
+				if (consumedQuantity < nutrientsMinimum[nutrient])
+				{
+					growthFactor = -1.0f;
+					break;
+				}
+				else if (consumedQuantity < nutrientsOptimum[nutrient] &&
+					consumedQuantity >= nutrientsMinimum[nutrient])
+				{
+					growthFactor *= (consumedQuantity - nutrientsMinimum[nutrient]) / (nutrientsOptimum[nutrient] / nutrientsMinimum[nutrient]);
+				}
+			}
+
+			if (size + growthFactor < maxSize)
+			{
+				size += growthFactor;
 				
-				Vector3 localScale = new Vector3(0.02f, 0.02f, 0.02f) * age;
+				if (size <= 0.0f)
+				{
+					Destroy(gameObject);
+				}
+				
+				Vector3 localScale = new Vector3(0.02f, 0.02f, 0.02f) * size;
 				transform.localScale = localScale;
 			}
 		}

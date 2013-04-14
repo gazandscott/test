@@ -10,16 +10,19 @@ public class Dirt : MonoBehaviour
 	
 	GameObject plantObject;
 	
-	float AlterNutrient(Nutrient nutrient, float quantity)
-	{
-		nutrients[nutrient] = nutrients[nutrient] + quantity;
-		
-		return quantity;
-	}
-	
 	public float Consume(Nutrient nutrient, float quantity)
 	{		
-		return AlterNutrient(nutrient, -quantity);
+		nutrients[nutrient] = nutrients[nutrient] - quantity;
+		
+		if (nutrients[nutrient] < 0.0f)
+		{
+			float unavailableQuantity = -nutrients[nutrient];
+			nutrients[nutrient] = 0.0f;
+			
+			return quantity - unavailableQuantity;
+		}
+		
+		return quantity;
 	}
 	
 	public Dictionary<Nutrient, float> GetNutrients()
@@ -43,20 +46,27 @@ public class Dirt : MonoBehaviour
 	
 	public float Provide(Nutrient nutrient, float quantity)
 	{
-		return AlterNutrient(nutrient, quantity);
+		return nutrients[nutrient] = nutrients[nutrient] + quantity;
 	}
 
 	void Start()
 	{
 		nutrients = new Dictionary<Nutrient, float>();
 		
-		nutrients[Nutrient.H2O] = 10.0f;
-		nutrients[Nutrient.N] = 10.0f;
+		nutrients[Nutrient.H2O] = 1.0f;
+		nutrients[Nutrient.N] = 1.0f;
 	}
 	
 	void Update()
 	{
-		nutrients[Nutrient.H2O] = nutrients[Nutrient.H2O] - (0.01f * Time.deltaTime);
-		nutrients[Nutrient.N] = nutrients[Nutrient.N] - (0.01f * Time.deltaTime);
+		List<Nutrient> keys = new List<Nutrient>(nutrients.Keys);
+		foreach (Nutrient nutrient in keys)
+		{
+			nutrients[nutrient] -= 0.01f * Time.deltaTime;
+			if (nutrients[nutrient] < 0.0f)
+			{
+				nutrients[nutrient] = 0.0f;
+			}
+		}
 	}
 }
