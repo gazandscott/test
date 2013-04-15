@@ -12,15 +12,21 @@ public class Plant : MonoBehaviour
 	
 	float maxSize;
 	
-	Dictionary<Nutrient, float> nutrientsMinimum;
+	Dictionary<Nutrient, float> minimumNutrients;
 	
-	Dictionary<Nutrient, float> nutrientsOptimum;
+	Dictionary<Nutrient, float> optimumNutrients;
 	
 	float size;
 	
 	public GameObject GetDirtObject()
 	{
 		return dirtObject;
+	}
+	
+	public void Init(Dictionary<Nutrient, float> minimumNutrients, Dictionary<Nutrient, float> optimumNutrients)
+	{
+		this.minimumNutrients = minimumNutrients;
+		this.optimumNutrients = optimumNutrients;
 	}
 	
 	public void SetDirtObject(GameObject dirtObject)
@@ -31,18 +37,10 @@ public class Plant : MonoBehaviour
 	void Start ()
 	{
 		growthRate = 0.2f;
-		lastGrowTime = 0.0f;
+		lastGrowTime = Time.timeSinceLevelLoad;
 		maxSize = 5.0f;
-		nutrientsMinimum = new Dictionary<Nutrient, float>();
-		nutrientsOptimum = new Dictionary<Nutrient, float>();
 		size = 1.0f;
 		transform.localScale = new Vector3(0.02f, 0.02f, 0.02f);
-		
-		nutrientsMinimum[Nutrient.H2O] = 0.03f;
-		nutrientsMinimum[Nutrient.N] = 0.01f;
-		
-		nutrientsOptimum[Nutrient.H2O] = 0.06f;
-		nutrientsOptimum[Nutrient.N] = 0.02f;
 	}
 	
 	void Update ()
@@ -59,18 +57,18 @@ public class Plant : MonoBehaviour
 			Dirt dirt = (Dirt) dirtObject.GetComponent("Dirt");
 			
 			float growthFactor = 1.0f;
-			foreach (Nutrient nutrient in nutrientsOptimum.Keys)
+			foreach (Nutrient nutrient in optimumNutrients.Keys)
 			{
-				float consumedQuantity = dirt.Consume(nutrient, nutrientsOptimum[nutrient]);
-				if (consumedQuantity < nutrientsMinimum[nutrient])
+				float consumedQuantity = dirt.Consume(nutrient, optimumNutrients[nutrient]);
+				if (consumedQuantity < minimumNutrients[nutrient])
 				{
 					growthFactor = -1.0f;
 					break;
 				}
-				else if (consumedQuantity < nutrientsOptimum[nutrient] &&
-					consumedQuantity >= nutrientsMinimum[nutrient])
+				else if (consumedQuantity < optimumNutrients[nutrient] &&
+					consumedQuantity >= minimumNutrients[nutrient])
 				{
-					growthFactor *= (consumedQuantity - nutrientsMinimum[nutrient]) / (nutrientsOptimum[nutrient] / nutrientsMinimum[nutrient]);
+					growthFactor *= (consumedQuantity - minimumNutrients[nutrient]) / (optimumNutrients[nutrient] / minimumNutrients[nutrient]);
 				}
 			}
 
