@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class Dirt : MonoBehaviour
 {
+	HashSet<GameObject> adjacentDirtObjects;
+	
 	public static float EXTENT = 1.0f;
 	
 	float lastLeechTime;
@@ -11,6 +13,11 @@ public class Dirt : MonoBehaviour
 	Dictionary<Nutrient, int> nutrients;
 	
 	GameObject plantObject;
+	
+	public void AddAdjacentDirtObject(GameObject adjacentDirtObject)
+	{
+		adjacentDirtObjects.Add(adjacentDirtObject);
+	}
 	
 	public float Consume(Nutrient nutrient, int quantity)
 	{		
@@ -30,6 +37,11 @@ public class Dirt : MonoBehaviour
 	public Dictionary<Nutrient, int> GetNutrients()
 	{
 		return nutrients;
+	}
+	
+	public HashSet<GameObject> GetAdjacentDirtObjects()
+	{
+		return adjacentDirtObjects;
 	}
 	
 	public GameObject GetPlantObject()
@@ -63,6 +75,7 @@ public class Dirt : MonoBehaviour
 
 	void Start()
 	{
+		adjacentDirtObjects = new HashSet<GameObject>();
 		lastLeechTime = Time.timeSinceLevelLoad;
 		nutrients = new Dictionary<Nutrient, int>();
 		

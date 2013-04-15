@@ -9,12 +9,38 @@ public class God : MonoBehaviour
 	
 	void Start()
 	{
+		GameObject[,] dirtObjects = new GameObject[initialWorldWidth, initialWorldHeight];
+		
 		for (int column = 0; column < initialWorldWidth; column++)
 		{
 			for (int row = 0; row < initialWorldHeight; row++)
 			{
-				GameObject dirt = (GameObject) Instantiate(GameObject.Find("Dirt"));
-				dirt.transform.position = new Vector3(initialWorldWidth * -0.5f + column + 0.5f, initialWorldHeight * -0.5f + row + 0.5f, 0.0f);
+				GameObject dirtObject = (GameObject) Instantiate(GameObject.Find("Dirt"));
+				dirtObject.transform.position =
+					new Vector3(initialWorldWidth * -0.5f + column + 0.5f, initialWorldHeight * -0.5f + row + 0.5f, 0.0f);
+				dirtObjects[column, row] = dirtObject;
+			}
+		}
+		
+		for (int column = 0; column < initialWorldWidth; column++)
+		{
+			for (int row = 0; row < initialWorldHeight; row++)
+			{
+				Dirt dirt = (Dirt) dirtObjects[column, row].GetComponent("Dirt");
+				
+				if (column != 0)
+				{
+					Dirt adjacentDirt = (Dirt) dirtObjects[column - 1, row].GetComponent("Dirt");
+					dirt.AddAdjacentDirtObject(adjacentDirt.gameObject);
+					adjacentDirt.AddAdjacentDirtObject(dirt.gameObject);
+				}
+				
+				if (row != 0)
+				{
+					Dirt adjacentDirt = (Dirt) dirtObjects[column, row - 1].GetComponent("Dirt");
+					dirt.AddAdjacentDirtObject(adjacentDirt.gameObject);
+					adjacentDirt.AddAdjacentDirtObject(dirt.gameObject);
+				}
 			}
 		}
 	}
