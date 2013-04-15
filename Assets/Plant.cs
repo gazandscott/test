@@ -12,9 +12,9 @@ public class Plant : MonoBehaviour
 	
 	float maxSize;
 	
-	Dictionary<Nutrient, float> minimumNutrients;
+	Dictionary<Nutrient, int> minimumNutrients;
 	
-	Dictionary<Nutrient, float> optimumNutrients;
+	Dictionary<Nutrient, int> optimumNutrients;
 	
 	float size;
 	
@@ -23,7 +23,7 @@ public class Plant : MonoBehaviour
 		return dirtObject;
 	}
 	
-	public void Init(Dictionary<Nutrient, float> minimumNutrients, Dictionary<Nutrient, float> optimumNutrients)
+	public void Init(Dictionary<Nutrient, int> minimumNutrients, Dictionary<Nutrient, int> optimumNutrients)
 	{
 		this.minimumNutrients = minimumNutrients;
 		this.optimumNutrients = optimumNutrients;

@@ -11,13 +11,13 @@ public class PlantFactory
 		
 		plantObject.renderer.material = material;
 		
-		Dictionary<Nutrient, float> minimumNutrients = new Dictionary<Nutrient, float>();
-		minimumNutrients[Nutrient.H2O] = 0.03f;
-		minimumNutrients[Nutrient.N] = 0.01f;
+		Dictionary<Nutrient, int> minimumNutrients = new Dictionary<Nutrient, int>();
+		minimumNutrients[Nutrient.H2O] = 3;
+		minimumNutrients[Nutrient.N] = 1;
 		
-		Dictionary<Nutrient, float> optimumNutrients = new Dictionary<Nutrient, float>();
-		optimumNutrients[Nutrient.H2O] = 0.06f;
-		optimumNutrients[Nutrient.N] = 0.02f;
+		Dictionary<Nutrient, int> optimumNutrients = new Dictionary<Nutrient, int>();
+		optimumNutrients[Nutrient.H2O] = 6;
+		optimumNutrients[Nutrient.N] = 2;
 		
 		plant.Init(minimumNutrients, optimumNutrients);
 		
@@ -31,13 +31,13 @@ public class PlantFactory
 		
 		plantObject.renderer.material = material;
 		
-		Dictionary<Nutrient, float> minimumNutrients = new Dictionary<Nutrient, float>();
-		minimumNutrients[Nutrient.H2O] = 0.03f;
-		minimumNutrients[Nutrient.N] = 0.01f;
+		Dictionary<Nutrient, int> minimumNutrients = new Dictionary<Nutrient, int>();
+		minimumNutrients[Nutrient.H2O] = 3;
+		minimumNutrients[Nutrient.N] = 1;
 		
-		Dictionary<Nutrient, float> optimumNutrients = new Dictionary<Nutrient, float>();
-		optimumNutrients[Nutrient.H2O] = 0.06f;
-		optimumNutrients[Nutrient.N] = 0.02f;
+		Dictionary<Nutrient, int> optimumNutrients = new Dictionary<Nutrient, int>();
+		optimumNutrients[Nutrient.H2O] = 6;
+		optimumNutrients[Nutrient.N] = 2;
 		
 		plant.Init(minimumNutrients, optimumNutrients);
 		
@@ -51,13 +51,13 @@ public class PlantFactory
 		
 		plantObject.renderer.material = material;
 		
-		Dictionary<Nutrient, float> minimumNutrients = new Dictionary<Nutrient, float>();
-		minimumNutrients[Nutrient.H2O] = 0.03f;
-		minimumNutrients[Nutrient.N] = 0.01f;
+		Dictionary<Nutrient, int> minimumNutrients = new Dictionary<Nutrient, int>();
+		minimumNutrients[Nutrient.H2O] = 3;
+		minimumNutrients[Nutrient.N] = 1;
 		
-		Dictionary<Nutrient, float> optimumNutrients = new Dictionary<Nutrient, float>();
-		optimumNutrients[Nutrient.H2O] = 0.06f;
-		optimumNutrients[Nutrient.N] = 0.02f;
+		Dictionary<Nutrient, int> optimumNutrients = new Dictionary<Nutrient, int>();
+		optimumNutrients[Nutrient.H2O] = 6;
+		optimumNutrients[Nutrient.N] = 2;
 		
 		plant.Init(minimumNutrients, optimumNutrients);
 		

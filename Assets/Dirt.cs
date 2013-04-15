@@ -5,19 +5,21 @@ using System.Collections.Generic;
 public class Dirt : MonoBehaviour
 {
 	public static float EXTENT = 1.0f;
+	
+	float lastLeechTime;
 
-	Dictionary<Nutrient, float> nutrients;
+	Dictionary<Nutrient, int> nutrients;
 	
 	GameObject plantObject;
 	
-	public float Consume(Nutrient nutrient, float quantity)
+	public float Consume(Nutrient nutrient, int quantity)
 	{		
 		nutrients[nutrient] = nutrients[nutrient] - quantity;
 		
-		if (nutrients[nutrient] < 0.0f)
+		if (nutrients[nutrient] < 0)
 		{
 			float unavailableQuantity = -nutrients[nutrient];
-			nutrients[nutrient] = 0.0f;
+			nutrients[nutrient] = 0;
 			
 			return quantity - unavailableQuantity;
 		}
@@ -25,7 +27,7 @@ public class Dirt : MonoBehaviour
 		return quantity;
 	}
 	
-	public Dictionary<Nutrient, float> GetNutrients()
+	public Dictionary<Nutrient, int> GetNutrients()
 	{
 		return nutrients;
 	}
@@ -44,28 +46,44 @@ public class Dirt : MonoBehaviour
 		plantObject.transform.position = plantPosition;
 	}
 	
-	public float Provide(Nutrient nutrient, float quantity)
+	public float Provide(Nutrient nutrient, int quantity)
 	{
-		return nutrients[nutrient] = nutrients[nutrient] + quantity;
+		nutrients[nutrient] = nutrients[nutrient] + quantity;
+		
+		if (nutrients[nutrient] > 100)
+		{
+			float unusableQuantity = nutrients[nutrient] - 100;
+			nutrients[nutrient] = 100;
+			
+			return quantity - unusableQuantity;
+		}
+		
+		return quantity;
 	}
 
 	void Start()
 	{
-		nutrients = new Dictionary<Nutrient, float>();
+		lastLeechTime = Time.timeSinceLevelLoad;
+		nutrients = new Dictionary<Nutrient, int>();
 		
-		nutrients[Nutrient.H2O] = 1.0f;
-		nutrients[Nutrient.N] = 1.0f;
+		nutrients[Nutrient.H2O] = 100;
+		nutrients[Nutrient.N] = 100;
 	}
 	
 	void Update()
 	{
-		List<Nutrient> keys = new List<Nutrient>(nutrients.Keys);
-		foreach (Nutrient nutrient in keys)
+		if (Time.timeSinceLevelLoad - lastLeechTime > 1.0f)
 		{
-			nutrients[nutrient] -= 0.01f * Time.deltaTime;
-			if (nutrients[nutrient] < 0.0f)
+			lastLeechTime = Time.timeSinceLevelLoad;
+			
+			List<Nutrient> keys = new List<Nutrient>(nutrients.Keys);
+			foreach (Nutrient nutrient in keys)
 			{
-				nutrients[nutrient] = 0.0f;
+				nutrients[nutrient] -= 1;
+				if (nutrients[nutrient] < 0)
+				{
+					nutrients[nutrient] = 0;
+				}
 			}
 		}
 	}
