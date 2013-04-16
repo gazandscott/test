@@ -1,11 +1,9 @@
 using UnityEngine;
 using System.Collections;
 
-public class DirtStats : MonoBehaviour
+public class Stats : MonoBehaviour
 {
 	GameObject dirtObject;
-	
-	float lastStatDisplayTime;
 	
     void OnGUI()
 	{
@@ -26,28 +24,26 @@ public class DirtStats : MonoBehaviour
 				}
 			}
 		}
+		
+		GUI.Box(new Rect(0, 0, 100, 105), "", Utils.GetGUIStyle());
+		
+		Player player = (Player) GetComponent("Player");
+		GUI.Label(new Rect(10, 10, 80, 20), "Money: $" + player.GetMoney());
+	
+		if (dirtObject != null)
+		{
+			Dirt dirt = (Dirt) dirtObject.GetComponent("Dirt");
+			GUI.Label(new Rect(10, 35, 80, 20), "Selected Dirt:");
+			GUI.Label(new Rect(10, 55, 80, 20), "H2O: " + dirt.GetNutrients()[Nutrient.H2O]);
+			GUI.Label(new Rect(10, 75, 80, 20), "N: " + dirt.GetNutrients()[Nutrient.N]);
+		}
     }
 	
 	void Start ()
 	{
-		lastStatDisplayTime = 0.0f;
 	}
 	
 	void Update ()
 	{
-		if (Time.timeSinceLevelLoad - lastStatDisplayTime > 1.0f)
-		{
-			lastStatDisplayTime = Time.timeSinceLevelLoad;
-			GUIText text = (GUIText) GameObject.Find("DirtStats").GetComponent("GUIText");
-			
-			if (dirtObject == null)
-			{
-				text.text = "Dirt Stats!";
-				return;
-			}
-		
-			Dirt dirt = (Dirt) dirtObject.GetComponent("Dirt");
-			text.text = "Dirt Stats!\nH2O: " + dirt.GetNutrients()[Nutrient.H2O] + "\nN: " + dirt.GetNutrients()[Nutrient.N];
-		}
 	}
 }

@@ -8,7 +8,7 @@ public class God : MonoBehaviour
 	public int initialWorldWidth;
 	
 	void Start()
-	{
+	{		
 		GameObject[,] dirtObjects = new GameObject[initialWorldWidth, initialWorldHeight];
 		
 		for (int column = 0; column < initialWorldWidth; column++)

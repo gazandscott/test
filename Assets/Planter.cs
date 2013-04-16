@@ -17,25 +17,38 @@ public class Planter : MonoBehaviour
 	{		
 		if (dirtObject != null)
 		{
-			GUI.Box(new Rect(menuLocation.x, menuLocation.y, 100, 120), "Planter");
+			Player player = (Player) GetComponent("Player");
+			GUI.Box(new Rect(menuLocation.x, menuLocation.y, 130, 120), "Planter");
 		
-			if(GUI.Button(new Rect(menuLocation.x + 10, menuLocation.y + 30, 80, 20), "Clover"))
+			if(GUI.Button(new Rect(menuLocation.x + 10, menuLocation.y + 30, 110, 20), "Clover ($50)"))
 			{
-				Plant(PlantFactory.createClover(cloverMaterial));
+				if (player.Spend(50.0f))
+				{
+					Plant(PlantFactory.createClover(cloverMaterial));
+					return;
+				}
 			}
 		
-			if(GUI.Button(new Rect(menuLocation.x + 10, menuLocation.y + 60, 80, 20), "Flower"))
+			if(GUI.Button(new Rect(menuLocation.x + 10, menuLocation.y + 60, 110, 20), "Flower ($30)"))
 			{
-				Plant(PlantFactory.createClover(flowerMaterial));
+				if (player.Spend(30.0f))
+				{
+					Plant(PlantFactory.createClover(flowerMaterial));
+					return;
+				}
 			}
 		
-			if(GUI.Button(new Rect(menuLocation.x + 10, menuLocation.y + 90, 80, 20), "Vegetable"))
+			if(GUI.Button(new Rect(menuLocation.x + 10, menuLocation.y + 90, 110, 20), "Vegetable ($10)"))
 			{
-				Plant(PlantFactory.createClover(vegetableMaterial));
+				if (player.Spend(10.0f))
+				{
+					Plant(PlantFactory.createClover(vegetableMaterial));
+					return;
+				}
 			}
 		}
 		
-		if (dirtObject == null && Event.current.type == EventType.mouseUp && Event.current.button == 0)
+		if (Event.current.type == EventType.mouseUp && Event.current.button == 0)
 		{
 			SelectDirt();
 		}
