@@ -33,7 +33,7 @@ public class Planter : MonoBehaviour
 			{
 				if (player.Spend(30.0f))
 				{
-					Plant(PlantFactory.createClover(flowerMaterial));
+					Plant(PlantFactory.createFlower(flowerMaterial));
 					return;
 				}
 			}
@@ -42,7 +42,7 @@ public class Planter : MonoBehaviour
 			{
 				if (player.Spend(10.0f))
 				{
-					Plant(PlantFactory.createClover(vegetableMaterial));
+					Plant(PlantFactory.createVegetable(vegetableMaterial));
 					return;
 				}
 			}

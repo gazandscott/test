@@ -10,6 +10,8 @@ public class Plant : MonoBehaviour
 	
 	float lastGrowTime;
 	
+	float lastYieldTime;
+	
 	float maxSize;
 	
 	Dictionary<Nutrient, int> minimumNutrients;
@@ -21,6 +23,10 @@ public class Plant : MonoBehaviour
 	Dictionary<Nutrient, int> providedNutrientRanges;
 	
 	float size;
+	
+	float yieldFrequency;
+	
+	float yieldValue;
 	
 	float Consume()
 	{
@@ -52,7 +58,7 @@ public class Plant : MonoBehaviour
 	
 	void Grow(float growthFactor)
 	{
-		if (size + growthFactor < maxSize)
+		if (size + growthFactor <= maxSize)
 		{
 			size += growthFactor;
 			
@@ -72,6 +78,8 @@ public class Plant : MonoBehaviour
 		this.optimumNutrients = optimumNutrients;
 		this.providedNutrients = new Dictionary<Nutrient, int>();
 		this.providedNutrientRanges = new Dictionary<Nutrient, int>();
+		this.yieldFrequency = 0.0f;
+		this.yieldValue = 0.0f;
 	}
 	
 	public void Init(Dictionary<Nutrient, int> minimumNutrients, Dictionary<Nutrient, int> optimumNutrients,
@@ -81,6 +89,19 @@ public class Plant : MonoBehaviour
 		this.optimumNutrients = optimumNutrients;
 		this.providedNutrients = providedNutrients;
 		this.providedNutrientRanges = providedNutrientRanges;
+		this.yieldFrequency = 0.0f;
+		this.yieldValue = 0.0f;
+	}
+	
+	public void Init(Dictionary<Nutrient, int> minimumNutrients, Dictionary<Nutrient, int> optimumNutrients,
+		float yieldValue, float yieldFrequency)
+	{
+		this.minimumNutrients = minimumNutrients;
+		this.optimumNutrients = optimumNutrients;
+		this.providedNutrients = new Dictionary<Nutrient, int>();
+		this.providedNutrientRanges = new Dictionary<Nutrient, int>();
+		this.yieldFrequency = yieldFrequency;
+		this.yieldValue = yieldValue;
 	}
 	
 	void Provide()
@@ -116,6 +137,7 @@ public class Plant : MonoBehaviour
 	{
 		growthRate = 0.2f;
 		lastGrowTime = Time.timeSinceLevelLoad;
+		lastYieldTime = Time.timeSinceLevelLoad;
 		maxSize = 5.0f;
 		size = 1.0f;
 		transform.localScale = new Vector3(0.02f, 0.02f, 0.02f);
@@ -138,6 +160,23 @@ public class Plant : MonoBehaviour
 			Provide();
 			
 			Grow(growthFactor);
+			
+			Yield();
+		}
+	}
+	
+	void Yield()
+	{
+		if (Time.timeSinceLevelLoad - lastYieldTime > yieldFrequency)
+		{
+			lastYieldTime = Time.timeSinceLevelLoad;
+			
+			if (size == maxSize)
+			{
+				GameObject theGame = GameObject.Find("The Game");
+				Player player = (Player) theGame.GetComponent("Player");
+				player.Earn(yieldValue);
+			}
 		}
 	}
 }
