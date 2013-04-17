@@ -69,6 +69,16 @@ public class Plant : MonoBehaviour
 			
 			Vector3 localScale = new Vector3(0.02f, 0.02f, 0.02f) * size;
 			transform.localScale = localScale;
+			
+			if (size == maxSize)
+			{
+				Dirt dirt = (Dirt) dirtObject.GetComponent("Dirt");
+				foreach (GameObject adjacentDirtObject in dirt.GetAdjacentDirtObjects())
+				{
+					Dirt adjacentDirt = (Dirt) adjacentDirtObject.GetComponent("Dirt");
+					adjacentDirt.SetPlantable();
+				}
+			}
 		}	
 	}
 	
@@ -143,7 +153,7 @@ public class Plant : MonoBehaviour
 		transform.localScale = new Vector3(0.02f, 0.02f, 0.02f);
 	}
 	
-	void Update ()
+	void Update()
 	{
 		// Required because there is an unused instance off to the side! HACK!
 		if (dirtObject == null)

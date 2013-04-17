@@ -8,7 +8,7 @@ public class God : MonoBehaviour
 	public int initialWorldWidth;
 	
 	void Start()
-	{		
+	{
 		GameObject[,] dirtObjects = new GameObject[initialWorldWidth, initialWorldHeight];
 		
 		for (int column = 0; column < initialWorldWidth; column++)
@@ -28,6 +28,12 @@ public class God : MonoBehaviour
 			{
 				Dirt dirt = (Dirt) dirtObjects[column, row].GetComponent("Dirt");
 				
+				if (column == initialWorldWidth / 2 &&
+					row == initialWorldHeight / 2)
+				{
+					dirt.SetPlantable();
+				}
+				
 				if (column != 0)
 				{
 					Dirt adjacentDirt = (Dirt) dirtObjects[column - 1, row].GetComponent("Dirt");
@@ -38,6 +44,22 @@ public class God : MonoBehaviour
 				if (row != 0)
 				{
 					Dirt adjacentDirt = (Dirt) dirtObjects[column, row - 1].GetComponent("Dirt");
+					dirt.AddAdjacentDirtObject(adjacentDirt.gameObject);
+					adjacentDirt.AddAdjacentDirtObject(dirt.gameObject);
+				}
+				
+				if (column != 0 &&
+					row != 0)
+				{
+					Dirt adjacentDirt = (Dirt) dirtObjects[column - 1, row - 1].GetComponent("Dirt");
+					dirt.AddAdjacentDirtObject(adjacentDirt.gameObject);
+					adjacentDirt.AddAdjacentDirtObject(dirt.gameObject);
+				}
+				
+				if (column != 0 &&
+					row != initialWorldHeight - 1)
+				{
+					Dirt adjacentDirt = (Dirt) dirtObjects[column - 1, row + 1].GetComponent("Dirt");
 					dirt.AddAdjacentDirtObject(adjacentDirt.gameObject);
 					adjacentDirt.AddAdjacentDirtObject(dirt.gameObject);
 				}

@@ -73,7 +73,7 @@ public class Planter : MonoBehaviour
 			if (clickedObject.name.StartsWith("Dirt"))
 			{
 				Dirt dirt = (Dirt) clickedObject.GetComponent("Dirt");
-				if (dirt.GetPlantObject() == null)
+				if (dirt.IsPlantable() && dirt.GetPlantObject() == null)
 				{
 					dirtObject = clickedObject;
 					menuLocation = Event.current.mousePosition;

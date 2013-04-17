@@ -12,7 +12,15 @@ public class Dirt : MonoBehaviour
 
 	Dictionary<Nutrient, int> nutrients;
 	
+	bool plantable;
+	
 	GameObject plantObject;
+	
+	Dirt()
+	{
+		adjacentDirtObjects = new HashSet<GameObject>();
+		plantable = false;
+	}
 	
 	public void AddAdjacentDirtObject(GameObject adjacentDirtObject)
 	{
@@ -49,6 +57,11 @@ public class Dirt : MonoBehaviour
 		return plantObject;
 	}
 	
+	public bool IsPlantable()
+	{
+		return plantable;	
+	}
+	
 	public void SetPlantObject(GameObject plantObject)
 	{
 		this.plantObject = plantObject;
@@ -72,10 +85,21 @@ public class Dirt : MonoBehaviour
 		
 		return quantity;
 	}
+	
+	public void SetPlantable()
+	{
+		if (!plantable)
+		{
+			plantable = true;
+			
+			/*Vector3 position = transform.position;
+			position.z = -9.0f;
+			Instantiate(GameObject.Find("Lamp"), position, Quaternion.identity);*/
+		}
+	}
 
 	void Start()
 	{
-		adjacentDirtObjects = new HashSet<GameObject>();
 		lastLeechTime = Time.timeSinceLevelLoad;
 		nutrients = new Dictionary<Nutrient, int>();
 		
