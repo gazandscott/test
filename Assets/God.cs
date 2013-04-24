@@ -9,6 +9,7 @@ public class God : MonoBehaviour
 	
 	void Start()
 	{
+		Application.runInBackground = true;
 		GameObject[,] dirtObjects = new GameObject[initialWorldWidth, initialWorldHeight];
 		
 		for (int column = 0; column < initialWorldWidth; column++)
