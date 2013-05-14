@@ -29,7 +29,7 @@ public class Player : MonoBehaviour {
 	
 	void Start()
 	{
-		money = 100.0f;
+		money = 100000.0f;
 	}
 	
 	void Update()
