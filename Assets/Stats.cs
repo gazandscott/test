@@ -25,17 +25,19 @@ public class Stats : MonoBehaviour
 			}
 		}
 		
-		GUI.Box(new Rect(0, 0, 100, 105), "", Utils.GetGUIStyle());
+		int y = 250;
+		
+		GUI.Box(new Rect(0, y, 100, 105), "", Utils.GetGUIStyle());
 		
 		Player player = (Player) GetComponent("Player");
-		GUI.Label(new Rect(10, 10, 80, 20), "Money: $" + player.GetMoney());
+		GUI.Label(new Rect(10, y + 10, 80, 20), "Money: $" + player.GetMoney());
 	
 		if (dirtObject != null)
 		{
 			Dirt dirt = (Dirt) dirtObject.GetComponent("Dirt");
-			GUI.Label(new Rect(10, 35, 80, 20), "Selected Dirt:");
-			GUI.Label(new Rect(10, 55, 80, 20), "H2O: " + dirt.GetNutrients()[Nutrient.H2O]);
-			GUI.Label(new Rect(10, 75, 80, 20), "N: " + dirt.GetNutrients()[Nutrient.N]);
+			GUI.Label(new Rect(10, y + 35, 80, 20), "Selected Dirt:");
+			GUI.Label(new Rect(10, y + 55, 80, 20), "H2O: " + dirt.GetNutrients()[Nutrient.H2O]);
+			GUI.Label(new Rect(10, y + 75, 80, 20), "N: " + dirt.GetNutrients()[Nutrient.N]);
 		}
     }
 	
