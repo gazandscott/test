@@ -15,8 +15,10 @@ public class UserInterface : MonoBehaviour
 	
 	GUIStyle style;
 	
+	PlantType toBePlanted;
+	
 	void Awake()
-	{
+	{		
 		selectedDirtObject = null;
 		style = new GUIStyle();
 		style.padding = new RectOffset(0, 0, 0, 0);
@@ -26,13 +28,25 @@ public class UserInterface : MonoBehaviour
 	{
 		int x = 0;
 		
-		GUI.Button(new Rect(x, 0, fertilizeTexture.width, fertilizeTexture.height), fertilizeTexture, style);
+		if (GUI.Button(new Rect(x, 0, fertilizeTexture.width, fertilizeTexture.height), fertilizeTexture, style))
+		{
+		}
+		
 		x += fertilizeTexture.width;
-		GUI.Button(new Rect(x, 0, repotTexture.width, repotTexture.height), repotTexture, style);
+		if (GUI.Button(new Rect(x, 0, repotTexture.width, repotTexture.height), repotTexture, style))
+		{
+		}
+		
 		x += repotTexture.width;
-		GUI.Button(new Rect(x, 0, tradeTexture.width, tradeTexture.height), tradeTexture, style);
+		if (GUI.Button(new Rect(x, 0, tradeTexture.width, tradeTexture.height), tradeTexture, style))
+		{
+		}
+		
 		x += tradeTexture.width;
-		GUI.Button(new Rect(x, 0, waterTexture.width, waterTexture.height), waterTexture, style);
+		if (GUI.Button(new Rect(x, 0, waterTexture.width, waterTexture.height), waterTexture, style))
+		{
+			GetComponent<WateringCan>().Water();
+		}
 		x += waterTexture.width;
 		
 		return fertilizeTexture.height;
@@ -40,14 +54,25 @@ public class UserInterface : MonoBehaviour
 	
 	public void DrawAvailablePlants(int y)
 	{
-		GUI.Button(new Rect(0, y, cloverTexture.width, cloverTexture.height), cloverTexture, style);
-		y += fertilizeTexture.height;
-		GUI.Button(new Rect(0, y, flowerTexture.width, flowerTexture.height), flowerTexture, style);
-		y += repotTexture.height;
-		GUI.Button(new Rect(0, y, vegetableTexture.width, vegetableTexture.height), vegetableTexture, style);
+		if (GUI.Button(new Rect(0, y, cloverTexture.width, cloverTexture.height), cloverTexture, style))
+		{
+			GetComponent<Planter>().Plant(PlantType.CLOVER);
+		}
+		y += cloverTexture.height;
+		
+		if (GUI.Button(new Rect(0, y, flowerTexture.width, flowerTexture.height), flowerTexture, style))
+		{
+			GetComponent<Planter>().Plant(PlantType.FLOWER);
+		}
+		y += flowerTexture.height;
+		
+		if (GUI.Button(new Rect(0, y, vegetableTexture.width, vegetableTexture.height), vegetableTexture, style))
+		{
+			GetComponent<Planter>().Plant(PlantType.VEGETABLE);
+		}
 	}
 	
-	GameObject GetSelectedDirtObject()
+	public GameObject GetSelectedDirtObject()
 	{
 		return selectedDirtObject;	
 	}

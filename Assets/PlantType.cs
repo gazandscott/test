@@ -1,9 +1,8 @@
 using System;
 
-namespace AssemblyCSharp
+public enum PlantType
 {
-	public enum PlantType
-	{
-	}
+	CLOVER,
+	FLOWER,
+	VEGETABLE
 }
-
