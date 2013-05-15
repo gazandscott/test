@@ -20,25 +20,6 @@ public class WateringCan : MonoBehaviour
 			WaterDroplets.transform.position = waterPosition;
 		}
 	}
-			else if(clickedObject != null && clickedObject.name.StartsWith("Plant"))
-			{
-				GameObject theGame = GameObject.Find("The Game");
-				Player player = (Player) theGame.GetComponent("Player");
-				
-				if (player.Spend(10.0f))
-				{
-					Dirt dirt = clickedObject.GetComponent<Plant>().GetDirtObject().GetComponent<Dirt>();
-					
-					dirt.Provide(Nutrient.H2O, 100);
-					
-					// Particles for watering schtuff
-					GameObject WaterDroplets = (GameObject) Instantiate(GameObject.Find("Water Drops"));
-					Vector3 waterPosition = clickedObject.GetComponent<Plant>().GetDirtObject().transform.position;
-					waterPosition.z = -4.0f;
-					waterPosition.y += Dirt.EXTENT * 0.5f;
-					WaterDroplets.transform.position = waterPosition;
-				}
-			}
 	
 	void Start () 
 	{

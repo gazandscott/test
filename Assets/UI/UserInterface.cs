@@ -30,11 +30,20 @@ public class UserInterface : MonoBehaviour
 		
 		if (GUI.Button(new Rect(x, 0, fertilizeTexture.width, fertilizeTexture.height), fertilizeTexture, style))
 		{
+			GetComponent<Fertilizer>().Fertilize();
 		}
 		
 		x += fertilizeTexture.width;
 		if (GUI.Button(new Rect(x, 0, repotTexture.width, repotTexture.height), repotTexture, style))
 		{
+			if (GetComponent<Repotter>().IsRepotting())
+			{
+				GetComponent<Repotter>().Repot();
+			}
+			else
+			{
+				GetComponent<Repotter>().Unpot();
+			}
 		}
 		
 		x += repotTexture.width;
@@ -82,23 +91,26 @@ public class UserInterface : MonoBehaviour
 		int actionsHeight = DrawActions();
 		DrawAvailablePlants(actionsHeight);
 		
-		GameObject clickedObject = Utils.GetGameObjectAtMousePosition();
-		if (clickedObject != null)
+		if(Event.current.type == EventType.mouseUp && Event.current.button == 0)
 		{
-			if (clickedObject.name.StartsWith("Dirt"))
+			GameObject clickedObject = Utils.GetGameObjectAtMousePosition();
+			if (clickedObject != null)
 			{
-				Dirt dirt = clickedObject.GetComponent<Dirt>();
-				if (dirt.IsPlantable())
+				if (clickedObject.name.StartsWith("Dirt"))
 				{
-					selectedDirtObject = clickedObject;
+					Dirt dirt = clickedObject.GetComponent<Dirt>();
+					if (dirt.IsPlantable())
+					{
+						selectedDirtObject = clickedObject;
+					}
 				}
-			}
-			else if (clickedObject.name.StartsWith("Plant"))
-			{
-				Dirt dirt = clickedObject.GetComponent<Plant>().GetDirtObject().GetComponent<Dirt>();
-				if (dirt.IsPlantable())
+				else if (clickedObject.name.StartsWith("Plant"))
 				{
-					selectedDirtObject = clickedObject;
+					Dirt dirt = clickedObject.GetComponent<Plant>().GetDirtObject().GetComponent<Dirt>();
+					if (dirt.IsPlantable())
+					{
+						selectedDirtObject = clickedObject;
+					}
 				}
 			}
 		}

@@ -65,10 +65,13 @@ public class Dirt : MonoBehaviour
 	public void SetPlantObject(GameObject plantObject)
 	{
 		this.plantObject = plantObject;
-
-		Vector3 plantPosition = transform.position;
-		plantPosition.z = -2.0f;
-		plantObject.transform.position = plantPosition;
+		
+		if (plantObject != null)
+		{
+			Vector3 plantPosition = transform.position;
+			plantPosition.z = -2.0f;
+			plantObject.transform.position = plantPosition;
+		}
 	}
 	
 	public float Provide(Nutrient nutrient, int quantity)
