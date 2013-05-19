@@ -17,6 +17,25 @@ public class UserInterface : MonoBehaviour
 	
 	PlantType toBePlanted;
 	
+	public GameObject SelectedDirtObject
+	{
+		get
+		{
+			return selectedDirtObject;
+		}
+		
+		private set
+		{
+			if (selectedDirtObject != null)
+			{
+			selectedDirtObject.renderer.material.color = new Color(200.0f / 255.0f, 200.0f / 255.0f, 200.0f / 255.0f, 1.0f);
+			}
+			
+			selectedDirtObject = value;
+			selectedDirtObject.renderer.material.color = Color.white;
+		}
+	}
+	
 	void Awake()
 	{		
 		selectedDirtObject = null;
@@ -81,11 +100,6 @@ public class UserInterface : MonoBehaviour
 		}
 	}
 	
-	public GameObject GetSelectedDirtObject()
-	{
-		return selectedDirtObject;	
-	}
-	
 	void OnGUI()
 	{
 		int actionsHeight = DrawActions();
@@ -99,17 +113,18 @@ public class UserInterface : MonoBehaviour
 				if (clickedObject.name.StartsWith("Dirt"))
 				{
 					Dirt dirt = clickedObject.GetComponent<Dirt>();
-					if (dirt.IsPlantable())
+					if (dirt.Plantable)
 					{
-						selectedDirtObject = clickedObject;
+						SelectedDirtObject = clickedObject;
 					}
 				}
 				else if (clickedObject.name.StartsWith("Plant"))
 				{
-					Dirt dirt = clickedObject.GetComponent<Plant>().GetDirtObject().GetComponent<Dirt>();
-					if (dirt.IsPlantable())
+					GameObject dirtObject = clickedObject.GetComponent<Plant>().DirtObject;
+					Dirt dirt = dirtObject.GetComponent<Dirt>();
+					if (dirt.Plantable)
 					{
-						selectedDirtObject = clickedObject;
+						SelectedDirtObject = dirtObject;
 					}
 				}
 			}

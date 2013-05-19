@@ -6,7 +6,7 @@ public class Fertilizer : MonoBehaviour
 	public void Fertilize()
 	{
 		Player player = GetComponent<Player>();
-		GameObject dirtObject = GetComponent<UserInterface>().GetSelectedDirtObject();
+		GameObject dirtObject = GetComponent<UserInterface>().SelectedDirtObject;
 		
 		if (player.Spend(10.0f))
 		{

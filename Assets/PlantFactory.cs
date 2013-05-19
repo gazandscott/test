@@ -8,6 +8,7 @@ public class PlantFactory
 	{
 		GameObject plantObject = (GameObject) GameObject.Instantiate(GameObject.Find("Plant"));
 		Plant plant = (Plant) plantObject.GetComponent("Plant");
+		plant.PlantType = PlantType.CLOVER;
 		
 		plantObject.renderer.material = material;
 		
@@ -34,6 +35,7 @@ public class PlantFactory
 	{
 		GameObject plantObject = (GameObject) GameObject.Instantiate(GameObject.Find("Plant"));
 		Plant plant = (Plant) plantObject.GetComponent("Plant");
+		plant.PlantType = PlantType.FLOWER;
 		
 		plantObject.renderer.material = material;
 		
@@ -54,6 +56,7 @@ public class PlantFactory
 	{
 		GameObject plantObject = (GameObject) GameObject.Instantiate(GameObject.Find("Plant"));
 		Plant plant = (Plant) plantObject.GetComponent("Plant");
+		plant.PlantType = PlantType.VEGETABLE;
 		
 		plantObject.renderer.material = material;
 		

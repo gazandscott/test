@@ -3,9 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class Plant : MonoBehaviour
-{	
-	GameObject dirtObject;
-	
+{
 	float growthRate;
 	
 	float lastGrowTime;
@@ -28,9 +26,21 @@ public class Plant : MonoBehaviour
 	
 	float yieldValue;
 	
+	public GameObject DirtObject
+	{
+		get;
+		set;
+	}
+	
+	public PlantType PlantType
+	{
+		get;
+		set;
+	}
+	
 	float Consume()
 	{
-		Dirt dirt = (Dirt) dirtObject.GetComponent("Dirt");
+		Dirt dirt = (Dirt) DirtObject.GetComponent("Dirt");
 		
 		float growthFactor = 1.0f;
 		foreach (Nutrient nutrient in optimumNutrients.Keys)
@@ -51,11 +61,6 @@ public class Plant : MonoBehaviour
 		return growthFactor;
 	}
 	
-	public GameObject GetDirtObject()
-	{
-		return dirtObject;
-	}
-	
 	void Grow(float growthFactor)
 	{
 		if (size + growthFactor <= maxSize)
@@ -72,11 +77,11 @@ public class Plant : MonoBehaviour
 			
 			if (size == maxSize)
 			{
-				Dirt dirt = (Dirt) dirtObject.GetComponent("Dirt");
+				Dirt dirt = (Dirt) DirtObject.GetComponent("Dirt");
 				foreach (GameObject adjacentDirtObject in dirt.GetAdjacentDirtObjects())
 				{
 					Dirt adjacentDirt = (Dirt) adjacentDirtObject.GetComponent("Dirt");
-					adjacentDirt.SetPlantable();
+					adjacentDirt.Plantable = true;
 				}
 			}
 		}	
@@ -116,7 +121,7 @@ public class Plant : MonoBehaviour
 	
 	void Provide()
 	{
-		Dirt dirt = (Dirt) dirtObject.GetComponent("Dirt");
+		Dirt dirt = (Dirt) DirtObject.GetComponent("Dirt");
 		
 		foreach (Nutrient nutrient in providedNutrients.Keys)
 		{
@@ -137,13 +142,8 @@ public class Plant : MonoBehaviour
 			}
 		}
 	}
-	
-	public void SetDirtObject(GameObject dirtObject)
-	{
-		this.dirtObject = dirtObject;
-	}
 
-	void Start ()
+	void Start()
 	{
 		growthRate = 0.2f;
 		lastGrowTime = Time.timeSinceLevelLoad;
@@ -156,7 +156,7 @@ public class Plant : MonoBehaviour
 	void Update()
 	{
 		// Required because there is an unused instance off to the side! HACK!
-		if (dirtObject == null)
+		if (DirtObject == null)
 		{
 			return;	
 		}

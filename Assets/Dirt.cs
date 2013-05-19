@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class Dirt : MonoBehaviour
-{
+{	
 	HashSet<GameObject> adjacentDirtObjects;
 	
 	public static float EXTENT = 1.0f;
@@ -12,14 +12,40 @@ public class Dirt : MonoBehaviour
 
 	Dictionary<Nutrient, int> nutrients;
 	
-	bool plantable;
+	private GameObject plantObject;
 	
-	GameObject plantObject;
+	public bool Plantable
+	{
+		get;
+		set;
+	}
+	
+	public GameObject PlantObject
+	{
+		get
+		{
+			return plantObject;	
+		}
+		
+		set
+		{
+			plantObject = value;
+			if (plantObject != null)
+			{
+				Vector3 plantPosition = transform.position;
+				plantPosition.y += 0.2f;
+				plantPosition.z -= 2.0f;
+				plantObject.transform.position = plantPosition;
+			}
+		}
+	}
 	
 	Dirt()
 	{
 		adjacentDirtObjects = new HashSet<GameObject>();
-		plantable = false;
+		nutrients = new Dictionary<Nutrient, int>();
+		Plantable = false;
+		plantObject = null;
 	}
 	
 	public void AddAdjacentDirtObject(GameObject adjacentDirtObject)
@@ -52,28 +78,6 @@ public class Dirt : MonoBehaviour
 		return adjacentDirtObjects;
 	}
 	
-	public GameObject GetPlantObject()
-	{
-		return plantObject;
-	}
-	
-	public bool IsPlantable()
-	{
-		return plantable;	
-	}
-	
-	public void SetPlantObject(GameObject plantObject)
-	{
-		this.plantObject = plantObject;
-		
-		if (plantObject != null)
-		{
-			Vector3 plantPosition = transform.position;
-			plantPosition.z = -2.0f;
-			plantObject.transform.position = plantPosition;
-		}
-	}
-	
 	public float Provide(Nutrient nutrient, int quantity)
 	{
 		nutrients[nutrient] = nutrients[nutrient] + quantity;
@@ -88,23 +92,10 @@ public class Dirt : MonoBehaviour
 		
 		return quantity;
 	}
-	
-	public void SetPlantable()
-	{
-		if (!plantable)
-		{
-			plantable = true;
-			
-			/*Vector3 position = transform.position;
-			position.z = -9.0f;
-			Instantiate(GameObject.Find("Lamp"), position, Quaternion.identity);*/
-		}
-	}
 
 	void Start()
 	{
 		lastLeechTime = Time.timeSinceLevelLoad;
-		nutrients = new Dictionary<Nutrient, int>();
 		
 		nutrients[Nutrient.H2O] = 100;
 		nutrients[Nutrient.N] = 100;

@@ -20,19 +20,19 @@ public class Repotter : MonoBehaviour
 	public void Repot()
 	{
 		Player player = GetComponent<Player>();
-		GameObject dirtObject = GetComponent<UserInterface>().GetSelectedDirtObject();
+		GameObject dirtObject = GetComponent<UserInterface>().SelectedDirtObject;
 		
-		if(repotting && dirtObject.GetComponent<Dirt>().GetPlantObject() == null)
+		if(repotting && dirtObject.GetComponent<Dirt>().PlantObject == null)
 		{
 			if (player.Spend(1.0f))
 			{
 				repotting = false;
 				
 				// Point plant to new dirt ref
-				toBeRepotted.GetComponent<Plant>().SetDirtObject(dirtObject);
+				toBeRepotted.GetComponent<Plant>().DirtObject = dirtObject;
 			
 				// Point new dirt to plant ref
-				dirtObject.GetComponent<Dirt>().SetPlantObject(toBeRepotted);
+				dirtObject.GetComponent<Dirt>().PlantObject = toBeRepotted;
 			}
 		}
 	}
@@ -44,15 +44,15 @@ public class Repotter : MonoBehaviour
 	public void Unpot()
 	{
 		Player player = GetComponent<Player>();
-		GameObject dirtObject = GetComponent<UserInterface>().GetSelectedDirtObject();
+		GameObject dirtObject = GetComponent<UserInterface>().SelectedDirtObject;
 		
 		if (player.Spend(10.0f))
 		{
 			repotting = true;
-			toBeRepotted = dirtObject.GetComponent<Dirt>().GetPlantObject();
+			toBeRepotted = dirtObject.GetComponent<Dirt>().PlantObject;
 			
 			// Clear current plant referrence to dirt
-			dirtObject.GetComponent<Dirt>().SetPlantObject(null);
+			dirtObject.GetComponent<Dirt>().PlantObject = null;
 		}
 	}
 	

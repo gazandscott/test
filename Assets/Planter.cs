@@ -11,12 +11,12 @@ public class Planter : MonoBehaviour
 	
 	void Plant(GameObject plantObject)
 	{
-		GameObject dirtObject = GetComponent<UserInterface>().GetSelectedDirtObject();
+		GameObject dirtObject = GetComponent<UserInterface>().SelectedDirtObject;
 		Dirt dirt = dirtObject.GetComponent<Dirt>();
 		Plant plant = plantObject.GetComponent<Plant>();
 		
-		dirt.SetPlantObject(plantObject);
-		plant.SetDirtObject(dirtObject);
+		dirt.PlantObject = plantObject;
+		plant.DirtObject = dirtObject;
 		
 		dirtObject = null;
 	}

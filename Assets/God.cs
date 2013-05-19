@@ -17,8 +17,8 @@ public class God : MonoBehaviour
 			for (int row = 0; row < initialWorldHeight; row++)
 			{
 				GameObject dirtObject = (GameObject) Instantiate(GameObject.Find("Dirt"));
-				dirtObject.transform.position =
-					new Vector3(initialWorldWidth * -0.5f + column + 0.5f, initialWorldHeight * -0.5f + row + 0.5f, 0.0f);
+				dirtObject.transform.position = new Vector3(0.0f, 0.0f, 0.0f);
+				dirtObject.transform.Translate(new Vector3(initialWorldWidth * -0.5f + column + 0.5f, initialWorldHeight * -0.5f + row + 0.5f, 0.0f));
 				dirtObjects[column, row] = dirtObject;
 			}
 		}
@@ -32,7 +32,7 @@ public class God : MonoBehaviour
 				if (column == initialWorldWidth / 2 &&
 					row == initialWorldHeight / 2)
 				{
-					dirt.SetPlantable();
+					dirt.Plantable = true;
 				}
 				
 				if (column != 0)

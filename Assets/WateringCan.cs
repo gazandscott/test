@@ -8,7 +8,7 @@ public class WateringCan : MonoBehaviour
 		Player player = GetComponent<Player>();
 		if (player.Spend(10.0f))
 		{
-			GameObject dirtObject = GetComponent<UserInterface>().GetSelectedDirtObject();
+			GameObject dirtObject = GetComponent<UserInterface>().SelectedDirtObject;
 			Dirt dirt = dirtObject.GetComponent<Dirt>();
 			dirt.Provide(Nutrient.H2O, 100);
 			
