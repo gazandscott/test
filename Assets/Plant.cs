@@ -155,9 +155,10 @@ public class Plant : MonoBehaviour
 	
 	void Update()
 	{
-		// Required because there is an unused instance off to the side! HACK!
 		if (DirtObject == null)
 		{
+			lastGrowTime = Time.timeSinceLevelLoad;
+			lastYieldTime = Time.timeSinceLevelLoad;
 			return;	
 		}
 

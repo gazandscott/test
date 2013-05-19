@@ -217,7 +217,7 @@ public class Social : MonoBehaviour
 		{
 			for (int index = 0; index < plantTrade.Value; index++)
 			{
-				player.PlantsReceived.Add(plantFactory.Create(plantTrade.Key));
+				player.UnplantedPlants.Add(plantFactory.Create(plantTrade.Key));
 			}
 		}
 		

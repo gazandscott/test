@@ -56,14 +56,7 @@ public class UserInterface : MonoBehaviour
 		x += fertilizeTexture.width;
 		if (GUI.Button(new Rect(x, 0, repotTexture.width, repotTexture.height), repotTexture, style))
 		{
-			if (GetComponent<Repotter>().IsRepotting())
-			{
-				GetComponent<Repotter>().Repot();
-			}
-			else
-			{
-				GetComponent<Repotter>().Unpot();
-			}
+			GetComponent<Potter>().Pot();
 		}
 		
 		x += repotTexture.width;
@@ -105,7 +98,7 @@ public class UserInterface : MonoBehaviour
 		
 		List<GameObject> receivedAndPlanted = new List<GameObject>();
 		
-		foreach (GameObject receivedPlantObject in GetComponent<Player>().PlantsReceived)
+		foreach (GameObject receivedPlantObject in GetComponent<Player>().UnplantedPlants)
 		{
 			if (receivedPlantObject.GetComponent<Plant>().Species == Species.CLOVER)
 			{
@@ -140,7 +133,7 @@ public class UserInterface : MonoBehaviour
 		
 		foreach (GameObject receivedPlantObject in receivedAndPlanted)
 		{
-			GetComponent<Player>().PlantsReceived.Remove(receivedPlantObject);
+			GetComponent<Player>().UnplantedPlants.Remove(receivedPlantObject);
 		}
 	}
 	

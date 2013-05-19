@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
 	
 	float money;
 	
-	public List<GameObject> PlantsReceived
+	public List<GameObject> UnplantedPlants
 	{
 		get;
 		private set;
@@ -38,7 +38,7 @@ public class Player : MonoBehaviour
 	void Start()
 	{
 		Money = 1000.0f;
-		PlantsReceived = new List<GameObject>();
+		UnplantedPlants = new List<GameObject>();
 	}
 	
 	void Update()
