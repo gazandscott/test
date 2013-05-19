@@ -2,14 +2,8 @@ using UnityEngine;
 using System.Collections;
 
 public class Planter : MonoBehaviour
-{
-	public Material cloverMaterial;
-	
-	public Material flowerMaterial;
-	
-	public Material vegetableMaterial;
-	
-	void Plant(GameObject plantObject)
+{	
+	public void Plant(GameObject plantObject)
 	{
 		GameObject dirtObject = GetComponent<UserInterface>().SelectedDirtObject;
 		Dirt dirt = dirtObject.GetComponent<Dirt>();
@@ -21,31 +15,32 @@ public class Planter : MonoBehaviour
 		dirtObject = null;
 	}
 	
-	public void Plant(PlantType plantType)
+	public void Plant(Species species)
 	{
+		PlantFactory plantFactory = GetComponent<PlantFactory>();
 		Player player = GetComponent<Player>();
 		
-		if (plantType == PlantType.CLOVER)
+		if (species == Species.CLOVER)
 		{
 			if (player.Spend(50.0f))
 			{
-				Plant(PlantFactory.createClover(cloverMaterial));
+				Plant(plantFactory.CreateClover());
 				return;
 			}
 		}
-		else if (plantType == PlantType.FLOWER)
+		else if (species == Species.FLOWER)
 		{
 			if (player.Spend(30.0f))
 			{
-				Plant(PlantFactory.createFlower(flowerMaterial));
+				Plant(plantFactory.CreateFlower());
 				return;
 			}
 		}
-		else if (plantType == PlantType.VEGETABLE)
+		else if (species == Species.VEGETABLE)
 		{
 			if (player.Spend(10.0f))
 			{
-				Plant(PlantFactory.createVegetable(vegetableMaterial));
+				Plant(plantFactory.CreateVegetable());
 				return;
 			}
 		}

@@ -207,9 +207,19 @@ public class Social : MonoBehaviour
 	
 	void PerformTrade()
 	{
-		Player player = (Player) GetComponent("Player");
+		PlantFactory plantFactory = GetComponent<PlantFactory>();
+		Player player = GetComponent<Player>();
+		
 		player.Spend(yourMoneyTrade);
 		player.Earn(theirMoneyTrade);
+		
+		foreach (KeyValuePair<Species, int> plantTrade in theirPlantTrades)
+		{
+			for (int index = 0; index < plantTrade.Value; index++)
+			{
+				player.PlantsReceived.Add(plantFactory.Create(plantTrade.Key));
+			}
+		}
 		
 		tradePartnerIndex = -1;
 	}

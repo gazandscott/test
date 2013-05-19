@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class UserInterface : MonoBehaviour
 {
@@ -15,7 +16,7 @@ public class UserInterface : MonoBehaviour
 	
 	GUIStyle style;
 	
-	PlantType toBePlanted;
+	Species toBePlanted;
 	
 	public GameObject SelectedDirtObject
 	{
@@ -37,7 +38,7 @@ public class UserInterface : MonoBehaviour
 	}
 	
 	void Awake()
-	{		
+	{
 		selectedDirtObject = null;
 		style = new GUIStyle();
 		style.padding = new RectOffset(0, 0, 0, 0);
@@ -84,19 +85,62 @@ public class UserInterface : MonoBehaviour
 	{
 		if (GUI.Button(new Rect(0, y, cloverTexture.width, cloverTexture.height), cloverTexture, style))
 		{
-			GetComponent<Planter>().Plant(PlantType.CLOVER);
+			GetComponent<Planter>().Plant(Species.CLOVER);
 		}
 		y += cloverTexture.height;
 		
 		if (GUI.Button(new Rect(0, y, flowerTexture.width, flowerTexture.height), flowerTexture, style))
 		{
-			GetComponent<Planter>().Plant(PlantType.FLOWER);
+			GetComponent<Planter>().Plant(Species.FLOWER);
 		}
 		y += flowerTexture.height;
 		
 		if (GUI.Button(new Rect(0, y, vegetableTexture.width, vegetableTexture.height), vegetableTexture, style))
 		{
-			GetComponent<Planter>().Plant(PlantType.VEGETABLE);
+			GetComponent<Planter>().Plant(Species.VEGETABLE);
+		}
+		y += vegetableTexture.height;
+		
+		y += 50;
+		
+		List<GameObject> receivedAndPlanted = new List<GameObject>();
+		
+		foreach (GameObject receivedPlantObject in GetComponent<Player>().PlantsReceived)
+		{
+			if (receivedPlantObject.GetComponent<Plant>().Species == Species.CLOVER)
+			{
+				if (GUI.Button(new Rect(0, y, cloverTexture.width, cloverTexture.height), cloverTexture, style))
+				{
+					GetComponent<Planter>().Plant(receivedPlantObject);
+					receivedAndPlanted.Add(receivedPlantObject);
+				}
+				y += cloverTexture.height;
+			}
+			
+			if (receivedPlantObject.GetComponent<Plant>().Species == Species.FLOWER)
+			{
+				if (GUI.Button(new Rect(0, y, flowerTexture.width, flowerTexture.height), flowerTexture, style))
+				{
+					GetComponent<Planter>().Plant(receivedPlantObject);
+					receivedAndPlanted.Add(receivedPlantObject);
+				}
+				y += flowerTexture.height;
+			}
+			
+			if (receivedPlantObject.GetComponent<Plant>().Species == Species.VEGETABLE)
+			{
+				if (GUI.Button(new Rect(0, y, vegetableTexture.width, vegetableTexture.height), vegetableTexture, style))
+				{
+					GetComponent<Planter>().Plant(receivedPlantObject);
+					receivedAndPlanted.Add(receivedPlantObject);
+				}
+				y += vegetableTexture.height;
+			}
+		}
+		
+		foreach (GameObject receivedPlantObject in receivedAndPlanted)
+		{
+			GetComponent<Player>().PlantsReceived.Remove(receivedPlantObject);
 		}
 	}
 	

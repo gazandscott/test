@@ -32,7 +32,7 @@ public class Plant : MonoBehaviour
 		set;
 	}
 	
-	public PlantType PlantType
+	public Species Species
 	{
 		get;
 		set;

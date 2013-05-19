@@ -2,15 +2,39 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 
-public class PlantFactory
-{	
-	public static GameObject createClover(Material material)
+public class PlantFactory : MonoBehaviour
+{
+	public Material cloverMaterial;
+	
+	public Material flowerMaterial;
+	
+	public Material vegetableMaterial;
+	
+	public GameObject Create(Species species)
+	{
+		if (species == Species.CLOVER)
+		{
+			return CreateClover();
+		}
+		else if (species == Species.FLOWER)
+		{
+			return CreateFlower();
+		}
+		else if (species == Species.VEGETABLE)
+		{
+			return CreateVegetable();
+		}
+		
+		return null;
+	}
+	
+	public GameObject CreateClover()
 	{
 		GameObject plantObject = (GameObject) GameObject.Instantiate(GameObject.Find("Plant"));
 		Plant plant = (Plant) plantObject.GetComponent("Plant");
-		plant.PlantType = PlantType.CLOVER;
+		plant.Species = Species.CLOVER;
 		
-		plantObject.renderer.material = material;
+		plantObject.renderer.material = cloverMaterial;
 		
 		Dictionary<Nutrient, int> minimumNutrients = new Dictionary<Nutrient, int>();
 		minimumNutrients[Nutrient.H2O] = 3;
@@ -31,13 +55,13 @@ public class PlantFactory
 		return plantObject;
 	}
 	
-	public static GameObject createFlower(Material material)
+	public GameObject CreateFlower()
 	{
 		GameObject plantObject = (GameObject) GameObject.Instantiate(GameObject.Find("Plant"));
 		Plant plant = (Plant) plantObject.GetComponent("Plant");
-		plant.PlantType = PlantType.FLOWER;
+		plant.Species = Species.FLOWER;
 		
-		plantObject.renderer.material = material;
+		plantObject.renderer.material = flowerMaterial;
 		
 		Dictionary<Nutrient, int> minimumNutrients = new Dictionary<Nutrient, int>();
 		minimumNutrients[Nutrient.H2O] = 3;
@@ -52,13 +76,13 @@ public class PlantFactory
 		return plantObject;
 	}
 	
-	public static GameObject createVegetable(Material material)
+	public GameObject CreateVegetable()
 	{
 		GameObject plantObject = (GameObject) GameObject.Instantiate(GameObject.Find("Plant"));
 		Plant plant = (Plant) plantObject.GetComponent("Plant");
-		plant.PlantType = PlantType.VEGETABLE;
+		plant.Species = Species.VEGETABLE;
 		
-		plantObject.renderer.material = material;
+		plantObject.renderer.material = vegetableMaterial;
 		
 		Dictionary<Nutrient, int> minimumNutrients = new Dictionary<Nutrient, int>();
 		minimumNutrients[Nutrient.H2O] = 3;
@@ -71,5 +95,13 @@ public class PlantFactory
 		plant.Init(minimumNutrients, optimumNutrients, 2, 10);
 		
 		return plantObject;
+	}
+	
+	void Start()
+	{
+	}
+	
+	void Update()
+	{
 	}
 }

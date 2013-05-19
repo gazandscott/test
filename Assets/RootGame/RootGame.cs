@@ -98,7 +98,6 @@ public class RootGame : MonoBehaviour
 				rootExtension0.transform.Rotate(0.0f, 0.0f, angleDegrees);
 				
 				int extensionScore = 0;
-				CapsuleCollider collider = rootExtension0.GetComponent<CapsuleCollider>();
 				RaycastHit[] hits = Physics.CapsuleCastAll(selectedRoot.transform.position, mousePosition, 0.5f, toMouse);
 				foreach (RaycastHit hit in hits)
 				{

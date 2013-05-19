@@ -1,35 +1,44 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
-public class Player : MonoBehaviour {
+public class Player : MonoBehaviour
+{
+	public float Money
+	{
+		get;
+		private set;
+	}
 	
 	float money;
 	
-	public void Earn(float income)
+	public List<GameObject> PlantsReceived
 	{
-		money += income;
+		get;
+		private set;
 	}
 	
-	public float GetMoney()
+	public void Earn(float income)
 	{
-		return money;	
+		Money += income;
 	}
 	
 	public bool Spend(float expense)
 	{
-		if (expense > money)
+		if (expense > Money)
 		{
 			return false;
 		}
 		
-		money -= expense;
+		Money -= expense;
 		
 		return true;
 	}
 	
 	void Start()
 	{
-		money = 100000.0f;
+		Money = 1000.0f;
+		PlantsReceived = new List<GameObject>();
 	}
 	
 	void Update()

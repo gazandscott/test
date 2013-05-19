@@ -10,7 +10,7 @@ public class Stats : MonoBehaviour
 		GUI.Box(new Rect(0, y, 100, 105), "", Utils.GetGUIStyle());
 		
 		Player player = GetComponent<Player>();
-		GUI.Label(new Rect(10, y + 10, 80, 20), "Money: $" + player.GetMoney());
+		GUI.Label(new Rect(10, y + 10, 80, 20), "Money: $" + player.Money);
 	
 		GameObject dirtObject = GetComponent<UserInterface>().SelectedDirtObject;
 		if (dirtObject != null)
@@ -21,7 +21,7 @@ public class Stats : MonoBehaviour
 			string plantName = "None";
 			if (plantObject != null)
 			{
-				plantName = plantObject.GetComponent<Plant>().PlantType.ToString();
+				plantName = plantObject.GetComponent<Plant>().Species.ToString();
 			}
 			
 			GUI.Label(new Rect(10, y + 35, 80, 20), "Selected Dirt:");
