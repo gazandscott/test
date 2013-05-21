@@ -7,10 +7,10 @@ public class Stats : MonoBehaviour
 	{
 		int y = 250;
 		
-		GUI.Box(new Rect(0, y, 100, 105), "", Utils.GetGUIStyle());
+		GUI.Box(new Rect(0, y, 200, 105), "", Utils.GetGUIStyle());
 		
 		Player player = GetComponent<Player>();
-		GUI.Label(new Rect(10, y + 10, 80, 20), "Money: $" + player.Money);
+		GUI.Label(new Rect(10, y + 10, 180, 25), "Money: $" + player.Money);
 	
 		GameObject dirtObject = GetComponent<UserInterface>().SelectedDirtObject;
 		if (dirtObject != null)
@@ -24,10 +24,10 @@ public class Stats : MonoBehaviour
 				plantName = plantObject.GetComponent<Plant>().Species.GetName();
 			}
 			
-			GUI.Label(new Rect(10, y + 35, 80, 20), "Selected Dirt:");
-			GUI.Label(new Rect(10, y + 55, 80, 20), "Plant: " + plantName);
-			GUI.Label(new Rect(10, y + 75, 80, 20), "H2O: " + dirt.GetNutrients()[Nutrient.H2O]);
-			GUI.Label(new Rect(10, y + 95, 80, 20), "N: " + dirt.GetNutrients()[Nutrient.N]);
+			GUI.Label(new Rect(10, y + 35, 180, 25), "Selected Dirt:");
+			GUI.Label(new Rect(10, y + 55, 180, 25), "Plant: " + plantName);
+			GUI.Label(new Rect(10, y + 75, 180, 25), "H2O: " + dirt.GetNutrients()[Nutrient.H2O]);
+			GUI.Label(new Rect(10, y + 95, 180, 25), "N: " + dirt.GetNutrients()[Nutrient.N]);
 		}
     }
 	
