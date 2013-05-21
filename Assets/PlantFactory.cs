@@ -6,9 +6,9 @@ public class PlantFactory : MonoBehaviour
 {
 	public Material cloverMaterial;
 	
-	public Material flowerMaterial;
+	public Material marigoldMaterial;
 	
-	public Material vegetableMaterial;
+	public Material tomatoMaterial;
 	
 	public GameObject Create(Species species)
 	{
@@ -16,13 +16,13 @@ public class PlantFactory : MonoBehaviour
 		{
 			return CreateClover();
 		}
-		else if (species == Species.FLOWER)
+		else if (species == Species.MARIGOLD)
 		{
-			return CreateFlower();
+			return CreateMarigold();
 		}
-		else if (species == Species.VEGETABLE)
+		else if (species == Species.TOMATO)
 		{
-			return CreateVegetable();
+			return CreateTomato();
 		}
 		
 		return null;
@@ -55,13 +55,13 @@ public class PlantFactory : MonoBehaviour
 		return plantObject;
 	}
 	
-	public GameObject CreateFlower()
+	public GameObject CreateMarigold()
 	{
 		GameObject plantObject = (GameObject) GameObject.Instantiate(GameObject.Find("Plant"));
 		Plant plant = (Plant) plantObject.GetComponent("Plant");
-		plant.Species = Species.FLOWER;
+		plant.Species = Species.MARIGOLD;
 		
-		plantObject.renderer.material = flowerMaterial;
+		plantObject.renderer.material = marigoldMaterial;
 		
 		Dictionary<Nutrient, int> minimumNutrients = new Dictionary<Nutrient, int>();
 		minimumNutrients[Nutrient.H2O] = 3;
@@ -76,13 +76,13 @@ public class PlantFactory : MonoBehaviour
 		return plantObject;
 	}
 	
-	public GameObject CreateVegetable()
+	public GameObject CreateTomato()
 	{
 		GameObject plantObject = (GameObject) GameObject.Instantiate(GameObject.Find("Plant"));
 		Plant plant = (Plant) plantObject.GetComponent("Plant");
-		plant.Species = Species.VEGETABLE;
+		plant.Species = Species.TOMATO;
 		
-		plantObject.renderer.material = vegetableMaterial;
+		plantObject.renderer.material = tomatoMaterial;
 		
 		Dictionary<Nutrient, int> minimumNutrients = new Dictionary<Nutrient, int>();
 		minimumNutrients[Nutrient.H2O] = 3;

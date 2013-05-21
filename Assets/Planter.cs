@@ -28,19 +28,19 @@ public class Planter : MonoBehaviour
 				return;
 			}
 		}
-		else if (species == Species.FLOWER)
+		else if (species == Species.MARIGOLD)
 		{
 			if (player.Spend(30.0f))
 			{
-				Plant(plantFactory.CreateFlower());
+				Plant(plantFactory.CreateMarigold());
 				return;
 			}
 		}
-		else if (species == Species.VEGETABLE)
+		else if (species == Species.TOMATO)
 		{
 			if (player.Spend(10.0f))
 			{
-				Plant(plantFactory.CreateVegetable());
+				Plant(plantFactory.CreateTomato());
 				return;
 			}
 		}

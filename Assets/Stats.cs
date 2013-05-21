@@ -21,7 +21,7 @@ public class Stats : MonoBehaviour
 			string plantName = "None";
 			if (plantObject != null)
 			{
-				plantName = plantObject.GetComponent<Plant>().Species.ToString();
+				plantName = plantObject.GetComponent<Plant>().Species.GetName();
 			}
 			
 			GUI.Label(new Rect(10, y + 35, 80, 20), "Selected Dirt:");

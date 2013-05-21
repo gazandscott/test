@@ -6,10 +6,10 @@ public class UserInterface : MonoBehaviour
 {
 	public Texture cloverTexture;
 	public Texture fertilizeTexture;
-	public Texture flowerTexture;
+	public Texture marigoldTexture;
 	public Texture repotTexture;
+	public Texture tomatoTexture;
 	public Texture tradeTexture;
-	public Texture vegetableTexture;
 	public Texture waterTexture;
 	
 	GameObject selectedDirtObject;
@@ -82,17 +82,17 @@ public class UserInterface : MonoBehaviour
 		}
 		y += cloverTexture.height;
 		
-		if (GUI.Button(new Rect(0, y, flowerTexture.width, flowerTexture.height), flowerTexture, style))
+		if (GUI.Button(new Rect(0, y, marigoldTexture.width, marigoldTexture.height), marigoldTexture, style))
 		{
-			GetComponent<Planter>().Plant(Species.FLOWER);
+			GetComponent<Planter>().Plant(Species.MARIGOLD);
 		}
-		y += flowerTexture.height;
+		y += marigoldTexture.height;
 		
-		if (GUI.Button(new Rect(0, y, vegetableTexture.width, vegetableTexture.height), vegetableTexture, style))
+		if (GUI.Button(new Rect(0, y, tomatoTexture.width, tomatoTexture.height), tomatoTexture, style))
 		{
-			GetComponent<Planter>().Plant(Species.VEGETABLE);
+			GetComponent<Planter>().Plant(Species.TOMATO);
 		}
-		y += vegetableTexture.height;
+		y += tomatoTexture.height;
 		
 		y += 50;
 		
@@ -110,24 +110,24 @@ public class UserInterface : MonoBehaviour
 				y += cloverTexture.height;
 			}
 			
-			if (receivedPlantObject.GetComponent<Plant>().Species == Species.FLOWER)
+			if (receivedPlantObject.GetComponent<Plant>().Species == Species.MARIGOLD)
 			{
-				if (GUI.Button(new Rect(0, y, flowerTexture.width, flowerTexture.height), flowerTexture, style))
+				if (GUI.Button(new Rect(0, y, marigoldTexture.width, marigoldTexture.height), marigoldTexture, style))
 				{
 					GetComponent<Planter>().Plant(receivedPlantObject);
 					receivedAndPlanted.Add(receivedPlantObject);
 				}
-				y += flowerTexture.height;
+				y += marigoldTexture.height;
 			}
 			
-			if (receivedPlantObject.GetComponent<Plant>().Species == Species.VEGETABLE)
+			if (receivedPlantObject.GetComponent<Plant>().Species == Species.TOMATO)
 			{
-				if (GUI.Button(new Rect(0, y, vegetableTexture.width, vegetableTexture.height), vegetableTexture, style))
+				if (GUI.Button(new Rect(0, y, tomatoTexture.width, tomatoTexture.height), tomatoTexture, style))
 				{
 					GetComponent<Planter>().Plant(receivedPlantObject);
 					receivedAndPlanted.Add(receivedPlantObject);
 				}
-				y += vegetableTexture.height;
+				y += tomatoTexture.height;
 			}
 		}
 		

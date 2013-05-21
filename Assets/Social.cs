@@ -229,14 +229,14 @@ public class Social : MonoBehaviour
 		theirMoneyTrade = 0;
 		theirPlantTrades.Clear();
 		theirPlantTrades.Add(Species.CLOVER, 0);
-		theirPlantTrades.Add(Species.FLOWER, 0);
-		theirPlantTrades.Add(Species.VEGETABLE, 0);
+		theirPlantTrades.Add(Species.MARIGOLD, 0);
+		theirPlantTrades.Add(Species.TOMATO, 0);
 		theirTradeAcceptance = false;
 		yourMoneyTrade = 0;
 		yourPlantTrades.Clear();
 		yourPlantTrades.Add(Species.CLOVER, 0);
-		yourPlantTrades.Add(Species.FLOWER, 0);
-		yourPlantTrades.Add(Species.VEGETABLE, 0);
+		yourPlantTrades.Add(Species.MARIGOLD, 0);
+		yourPlantTrades.Add(Species.TOMATO, 0);
 		yourTradeAcceptance = false;
 	}
 	

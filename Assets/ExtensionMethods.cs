@@ -8,13 +8,13 @@ public static class ExtensionMethods
 		{
 			return "Clover";
 		}
-		else if (species == Species.FLOWER)
+		else if (species == Species.MARIGOLD)
 		{
-			return "Flower";
+			return "Marigold";
 		}
-		else if (species == Species.VEGETABLE)
+		else if (species == Species.TOMATO)
 		{
-			return "Vegetables";
+			return "Tomato";
 		}
 		
 		return null;
