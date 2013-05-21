@@ -12,12 +12,22 @@ public class Dirt : MonoBehaviour
 
 	Dictionary<Nutrient, int> nutrients;
 	
+	bool plantable;
+	
 	private GameObject plantObject;
 	
 	public bool Plantable
 	{
-		get;
-		set;
+		get
+		{
+			return plantable;
+		}
+		
+		set
+		{
+			plantable = value;
+			renderer.material.color = new Color(200.0f / 255.0f, 200.0f / 255.0f, 200.0f / 255.0f, 1.0f);
+		}
 	}
 	
 	public GameObject PlantObject
@@ -44,7 +54,7 @@ public class Dirt : MonoBehaviour
 	{
 		adjacentDirtObjects = new HashSet<GameObject>();
 		nutrients = new Dictionary<Nutrient, int>();
-		Plantable = false;
+		plantable = false;
 		plantObject = null;
 	}
 	

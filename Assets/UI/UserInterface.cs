@@ -25,11 +25,11 @@ public class UserInterface : MonoBehaviour
 			return selectedDirtObject;
 		}
 		
-		private set
+		set
 		{
 			if (selectedDirtObject != null)
 			{
-			selectedDirtObject.renderer.material.color = new Color(200.0f / 255.0f, 200.0f / 255.0f, 200.0f / 255.0f, 1.0f);
+				selectedDirtObject.renderer.material.color = new Color(200.0f / 255.0f, 200.0f / 255.0f, 200.0f / 255.0f, 1.0f);
 			}
 			
 			selectedDirtObject = value;

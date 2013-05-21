@@ -42,6 +42,7 @@ public class God : MonoBehaviour
 					row == initialWorldHeight / 2)
 				{
 					dirt.Plantable = true;
+					GetComponent<UserInterface>().SelectedDirtObject = dirtObjects[column, row];
 				}
 				
 				if (column != 0)
