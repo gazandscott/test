@@ -203,8 +203,11 @@ public class Plant : MonoBehaviour
 				Player player = (Player) theGame.GetComponent("Player");
 				player.Earn(yieldValue);
 				
-				Vector3 screenPosition = Camera.current.WorldToScreenPoint(DirtObject.transform.position);
-				GameObject.Find("The Game").GetComponent<FloatingText>().Display("$" + yieldValue, Color.yellow, new Vector2(screenPosition.x + 20, screenPosition.y));
+				if (yieldValue > 0.0f)
+				{
+					Vector3 screenPosition = Camera.current.WorldToScreenPoint(DirtObject.transform.position);
+					GameObject.Find("The Game").GetComponent<FloatingText>().Display("$" + yieldValue, Color.yellow, new Vector2(screenPosition.x + 20, screenPosition.y));
+				}
 			}
 		}
 	}
