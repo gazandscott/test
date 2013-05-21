@@ -84,7 +84,7 @@ public class God : MonoBehaviour
 		{
 			lastRainTime = Time.timeSinceLevelLoad;
 			
-			if (Random.Range(0.0f, 1.0f) > 0.5f)
+			if (Random.Range(0, 2) == 1)
 			{
 				foreach (GameObject dirtObject in GameObject.FindGameObjectsWithTag("Dirt"))
 				{
