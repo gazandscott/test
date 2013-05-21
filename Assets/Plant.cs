@@ -86,17 +86,19 @@ public class Plant : MonoBehaviour
 			}
 			
 			string text = growthFactor.ToString();
+			Color textColor;
 			if (growthFactor >= 0.0f)
 			{
 				text = "+" + growthFactor;
+				textColor = Color.yellow;
 			}
 			else
 			{
-				text = "-" + growthFactor;
+				textColor = Color.red;
 			}
 			
 			Vector3 screenPosition = Camera.current.WorldToScreenPoint(DirtObject.transform.position);
-			GameObject.Find("The Game").GetComponent<FloatingText>().Display(text, new Vector2(screenPosition.x, screenPosition.y));
+			GameObject.Find("The Game").GetComponent<FloatingText>().Display(text, textColor, new Vector2(screenPosition.x, screenPosition.y));
 		}	
 	}
 	
