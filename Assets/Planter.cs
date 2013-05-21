@@ -5,9 +5,14 @@ public class Planter : MonoBehaviour
 {	
 	public void Plant(GameObject plantObject)
 	{
-		GameObject dirtObject = GetComponent<UserInterface>().SelectedDirtObject;
+		GameObject dirtObject = GetComponent<UserInterface>().SelectedDirtObject;		
 		Dirt dirt = dirtObject.GetComponent<Dirt>();
 		Plant plant = plantObject.GetComponent<Plant>();
+		
+		if (dirt.PlantObject != null)
+		{
+			return;
+		}
 		
 		dirt.PlantObject = plantObject;
 		plant.DirtObject = dirtObject;
@@ -17,6 +22,14 @@ public class Planter : MonoBehaviour
 	
 	public void Plant(Species species)
 	{
+		GameObject dirtObject = GetComponent<UserInterface>().SelectedDirtObject;		
+		Dirt dirt = dirtObject.GetComponent<Dirt>();
+		
+		if (dirt.PlantObject != null)
+		{
+			return;
+		}
+		
 		PlantFactory plantFactory = GetComponent<PlantFactory>();
 		Player player = GetComponent<Player>();
 		
