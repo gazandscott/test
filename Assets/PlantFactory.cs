@@ -92,7 +92,7 @@ public class PlantFactory : MonoBehaviour
 		optimumNutrients[Nutrient.H2O] = 6;
 		optimumNutrients[Nutrient.N] = 2;
 		
-		plant.Init(minimumNutrients, optimumNutrients, 2, 10);
+		plant.Init(minimumNutrients, optimumNutrients, 10, 10);
 		
 		return plantObject;
 	}
