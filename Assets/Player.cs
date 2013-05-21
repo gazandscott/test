@@ -37,7 +37,7 @@ public class Player : MonoBehaviour
 	
 	void Start()
 	{
-		Money = 1000.0f;
+		Money = 150.0f;
 		UnplantedPlants = new List<GameObject>();
 	}
 	
