@@ -3,13 +3,22 @@ using System.Collections;
 
 public class God : MonoBehaviour
 {
+	const float RAIN_FREQUENCY = 10.0f;
+	
 	public int initialWorldHeight;
 	
 	public int initialWorldWidth;
 	
-	void Start()
+	float lastRainTime;
+	
+	void Awake()
 	{
 		Application.runInBackground = true;
+		lastRainTime = 0.0f;
+	}
+	
+	void Start()
+	{
 		GameObject[,] dirtObjects = new GameObject[initialWorldWidth, initialWorldHeight];
 		
 		for (int column = 0; column < initialWorldWidth; column++)
@@ -70,5 +79,25 @@ public class God : MonoBehaviour
 	
 	void Update()
 	{
+		if (Time.timeSinceLevelLoad - lastRainTime > RAIN_FREQUENCY)
+		{
+			lastRainTime = Time.timeSinceLevelLoad;
+			
+			if (Random.Range(0.0f, 1.0f) > 0.5f)
+			{
+				foreach (GameObject dirtObject in GameObject.FindGameObjectsWithTag("Dirt"))
+				{
+					Dirt dirt = dirtObject.GetComponent<Dirt>();
+					dirt.Provide(Nutrient.H2O, 100);
+					
+					// Particles for watering schtuff
+					GameObject WaterDroplets = (GameObject) Instantiate(GameObject.Find("Water Drops"));
+					Vector3 waterPosition = dirtObject.transform.position;
+					waterPosition.z = -4.0f;
+					waterPosition.y += Dirt.EXTENT * 0.5f;
+					WaterDroplets.transform.position = waterPosition;
+				}
+			}
+		}
 	}
 }
