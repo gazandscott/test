@@ -26,7 +26,11 @@ public class Dirt : MonoBehaviour
 		set
 		{
 			plantable = value;
-			renderer.material.color = new Color(200.0f / 255.0f, 200.0f / 255.0f, 200.0f / 255.0f, 1.0f);
+			
+			if (GameObject.Find("The Game").GetComponent<UserInterface>().SelectedDirtObject != gameObject)
+			{
+				renderer.material.color = new Color(200.0f / 255.0f, 200.0f / 255.0f, 200.0f / 255.0f, 1.0f);
+			}
 		}
 	}
 	
