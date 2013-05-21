@@ -84,6 +84,19 @@ public class Plant : MonoBehaviour
 					adjacentDirt.Plantable = true;
 				}
 			}
+			
+			string text = growthFactor.ToString();
+			if (growthFactor >= 0.0f)
+			{
+				text = "+" + growthFactor;
+			}
+			else
+			{
+				text = "-" + growthFactor;
+			}
+			
+			Vector3 screenPosition = Camera.current.WorldToScreenPoint(DirtObject.transform.position);
+			GameObject.Find("The Game").GetComponent<FloatingText>().Display(text, new Vector2(screenPosition.x, screenPosition.y));
 		}	
 	}
 	
