@@ -206,7 +206,7 @@ public class Plant : MonoBehaviour
 				if (yieldValue > 0.0f)
 				{
 					Vector3 screenPosition = Camera.current.WorldToScreenPoint(DirtObject.transform.position);
-					GameObject.Find("The Game").GetComponent<FloatingText>().Display("$" + yieldValue, Color.yellow, new Vector2(screenPosition.x + 20, screenPosition.y));
+					GameObject.Find("The Game").GetComponent<FloatingText>().Display("$" + yieldValue, Color.blue, new Vector2(screenPosition.x + 20, screenPosition.y));
 				}
 			}
 		}
