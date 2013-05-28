@@ -32,6 +32,24 @@ public class Plant : MonoBehaviour
 		set;
 	}
 	
+	public Material Material1
+	{
+		get;
+		set;
+	}
+	
+	public Material Material2
+	{
+		get;
+		set;
+	}
+	
+	public Material Material3
+	{
+		get;
+		set;
+	}
+	
 	public Species Species
 	{
 		get;
@@ -67,13 +85,24 @@ public class Plant : MonoBehaviour
 		{
 			size += growthFactor;
 			
-			if (size <= 0.0f)
+			if (size < 0.0f)
 			{
 				Destroy(gameObject);
+				return;
 			}
 			
-			Vector3 localScale = new Vector3(0.02f, 0.02f, 0.02f) * size;
-			transform.localScale = localScale;
+			if (size >= 2.0f)
+			{
+				renderer.material = Material3;
+			}
+			else if (size >= 1.0f)
+			{
+				renderer.material = Material2;
+			}
+			else
+			{
+				renderer.material = Material1;
+			}
 			
 			if (size == maxSize)
 			{
@@ -163,9 +192,8 @@ public class Plant : MonoBehaviour
 		growthRate = 0.2f;
 		lastGrowTime = Time.timeSinceLevelLoad;
 		lastYieldTime = Time.timeSinceLevelLoad;
-		maxSize = 5.0f;
-		size = 1.0f;
-		transform.localScale = new Vector3(0.02f, 0.02f, 0.02f);
+		maxSize = 2.0f;
+		size = 0.0f;
 	}
 	
 	void Update()

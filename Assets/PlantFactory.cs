@@ -4,11 +4,17 @@ using System.Collections.Generic;
 
 public class PlantFactory : MonoBehaviour
 {
-	public Material cloverMaterial;
+	public Material cloverMaterial1;
+	public Material cloverMaterial2;
+	public Material cloverMaterial3;
 	
-	public Material marigoldMaterial;
+	public Material marigoldMaterial1;
+	public Material marigoldMaterial2;
+	public Material marigoldMaterial3;
 	
-	public Material tomatoMaterial;
+	public Material tomatoMaterial1;
+	public Material tomatoMaterial2;
+	public Material tomatoMaterial3;
 	
 	public GameObject Create(Species species)
 	{
@@ -32,9 +38,13 @@ public class PlantFactory : MonoBehaviour
 	{
 		GameObject plantObject = (GameObject) GameObject.Instantiate(GameObject.Find("Plant"));
 		Plant plant = (Plant) plantObject.GetComponent("Plant");
+		
+		plant.Material1 = cloverMaterial1;
+		plant.Material2 = cloverMaterial2;
+		plant.Material3 = cloverMaterial3;
 		plant.Species = Species.CLOVER;
 		
-		plantObject.renderer.material = cloverMaterial;
+		plantObject.renderer.material = cloverMaterial1;
 		
 		Dictionary<Nutrient, int> minimumNutrients = new Dictionary<Nutrient, int>();
 		minimumNutrients[Nutrient.H2O] = 3;
@@ -59,9 +69,13 @@ public class PlantFactory : MonoBehaviour
 	{
 		GameObject plantObject = (GameObject) GameObject.Instantiate(GameObject.Find("Plant"));
 		Plant plant = (Plant) plantObject.GetComponent("Plant");
+		
+		plant.Material1 = marigoldMaterial1;
+		plant.Material2 = marigoldMaterial2;
+		plant.Material3 = marigoldMaterial3;
 		plant.Species = Species.MARIGOLD;
 		
-		plantObject.renderer.material = marigoldMaterial;
+		plantObject.renderer.material = marigoldMaterial1;
 		
 		Dictionary<Nutrient, int> minimumNutrients = new Dictionary<Nutrient, int>();
 		minimumNutrients[Nutrient.H2O] = 3;
@@ -80,9 +94,13 @@ public class PlantFactory : MonoBehaviour
 	{
 		GameObject plantObject = (GameObject) GameObject.Instantiate(GameObject.Find("Plant"));
 		Plant plant = (Plant) plantObject.GetComponent("Plant");
+		
+		plant.Material1 = tomatoMaterial1;
+		plant.Material2 = tomatoMaterial2;
+		plant.Material3 = tomatoMaterial3;
 		plant.Species = Species.TOMATO;
 		
-		plantObject.renderer.material = tomatoMaterial;
+		plantObject.renderer.material = tomatoMaterial1;
 		
 		Dictionary<Nutrient, int> minimumNutrients = new Dictionary<Nutrient, int>();
 		minimumNutrients[Nutrient.H2O] = 3;

@@ -47,7 +47,7 @@ public class Dirt : MonoBehaviour
 			if (plantObject != null)
 			{
 				Vector3 plantPosition = transform.position;
-				plantPosition.y += 0.2f;
+				plantPosition.y += 0.45f;
 				plantPosition.z -= 2.0f;
 				plantObject.transform.position = plantPosition;
 			}
