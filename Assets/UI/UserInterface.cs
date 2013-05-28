@@ -144,27 +144,23 @@ public class UserInterface : MonoBehaviour
 		
 		if(Event.current.type == EventType.mouseUp && Event.current.button == 0)
 		{
-			GameObject clickedObject = Utils.GetGameObjectAtMousePosition();
-			if (clickedObject != null)
+			GameObject closestDirtObject = null;
+			
+			List<GameObject> clickedObjects = Utils.GetGameObjectsAtMousePosition();
+			foreach (GameObject clickedObject in clickedObjects)
 			{
-				if (clickedObject.name.StartsWith("Dirt"))
+				if (clickedObject.name.StartsWith("Dirt") &&
+					Utils.GetGameObjectClosestToMouse(closestDirtObject, clickedObject) == clickedObject)
 				{
 					Dirt dirt = clickedObject.GetComponent<Dirt>();
 					if (dirt.Plantable)
 					{
-						SelectedDirtObject = clickedObject;
-					}
-				}
-				else if (clickedObject.name.StartsWith("Plant"))
-				{
-					GameObject dirtObject = clickedObject.GetComponent<Plant>().DirtObject;
-					Dirt dirt = dirtObject.GetComponent<Dirt>();
-					if (dirt.Plantable)
-					{
-						SelectedDirtObject = dirtObject;
+						closestDirtObject = clickedObject;
 					}
 				}
 			}
+			
+			SelectedDirtObject = closestDirtObject;
 		}
 	}
 	
