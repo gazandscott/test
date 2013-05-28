@@ -5,7 +5,8 @@ using System.Collections.Generic;
 
 public class RootGame : MonoBehaviour
 {	
-	public Material nitrogenMaterial;
+	public Material nitrogenNutrientMaterial;
+	public Material nitrogenRootMaterial;
 	
 	public Transform nutrient;
 	
@@ -21,7 +22,8 @@ public class RootGame : MonoBehaviour
 	
 	public float swipeTime;
 	
-	public Material waterMaterial;
+	public Material waterNutrientMaterial;
+	public Material waterRootMaterial;
 	
 	void OnGUI()
 	{
@@ -49,30 +51,30 @@ public class RootGame : MonoBehaviour
 		// Roots.
 		GameObject root0 = ((Transform) Instantiate(root, new Vector3(-3.0f, 3.0f, 0.0f), Quaternion.identity)).gameObject;
 		root0.GetComponent<RootGameRoot>().SetNutrient(Nutrient.N);
-		root0.renderer.material = nitrogenMaterial;
+		root0.renderer.material = nitrogenRootMaterial;
 		GameObject root1 = ((Transform) Instantiate(root, new Vector3(-1.0f, 3.0f, 0.0f), Quaternion.identity)).gameObject;
 		root1.GetComponent<RootGameRoot>().SetNutrient(Nutrient.H2O);
-		root1.renderer.material = waterMaterial;
+		root1.renderer.material = waterRootMaterial;
 		GameObject root2 = ((Transform) Instantiate(root, new Vector3(1.0f, 3.0f, 0.0f), Quaternion.identity)).gameObject;
 		root2.GetComponent<RootGameRoot>().SetNutrient(Nutrient.H2O);
-		root2.renderer.material = waterMaterial;
+		root2.renderer.material = waterRootMaterial;
 		GameObject root3 = ((Transform) Instantiate(root, new Vector3(3.0f, 3.0f, 0.0f), Quaternion.identity)).gameObject;
 		root3.GetComponent<RootGameRoot>().SetNutrient(Nutrient.N);
-		root3.renderer.material = nitrogenMaterial;
+		root3.renderer.material = nitrogenRootMaterial;
 		
 		// Nutrients.
 		GameObject nutrient0 = ((Transform) Instantiate(nutrient, new Vector3(-3.0f, -3.0f, 0.0f), Quaternion.identity)).gameObject;
 		nutrient0.GetComponent<RootGameNutrient>().SetNutrient(Nutrient.H2O);
-		nutrient0.renderer.material = waterMaterial;
+		nutrient0.renderer.material = waterNutrientMaterial;
 		GameObject nutrient1 = ((Transform) Instantiate(nutrient, new Vector3(-1.0f, -3.0f, 0.0f), Quaternion.identity)).gameObject;
 		nutrient1.GetComponent<RootGameNutrient>().SetNutrient(Nutrient.N);
-		nutrient1.renderer.material = nitrogenMaterial;
+		nutrient1.renderer.material = nitrogenNutrientMaterial;
 		GameObject nutrient2 = ((Transform) Instantiate(nutrient, new Vector3(1.0f, -3.0f, 0.0f), Quaternion.identity)).gameObject;
 		nutrient2.GetComponent<RootGameNutrient>().SetNutrient(Nutrient.H2O);
-		nutrient2.renderer.material = waterMaterial;
+		nutrient2.renderer.material = waterNutrientMaterial;
 		GameObject nutrient3 = ((Transform) Instantiate(nutrient, new Vector3(3.0f, -3.0f, 0.0f), Quaternion.identity)).gameObject;
 		nutrient3.GetComponent<RootGameNutrient>().SetNutrient(Nutrient.N);
-		nutrient3.renderer.material = nitrogenMaterial;
+		nutrient3.renderer.material = nitrogenNutrientMaterial;
 	}
 	
 	void Update()
